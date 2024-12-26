@@ -47,7 +47,7 @@ const HomePage = () => {
   const { data: imageData } = useQuery({
     queryKey: ['imgData'],
     queryFn: () => getSimilarity("camera2"),
-    refetchInterval: 1000
+    enabled: !!cameraNum
   })
   console.log(imageData)
   // data가 업데이트될 때마다 activeChannelNames를 업데이트
