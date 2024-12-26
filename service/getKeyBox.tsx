@@ -38,12 +38,3 @@ export async function getGuestMany(hotel_id: number) {
         return null
     }
 }
-
-export async function getSimilarity(cameraId: string) {
-    try {
-        const res = await axios.get(`http://localhost:8000/get_similarity_image`);
-        return res.data;
-    } catch (e) {
-        return null;
-    }
-}

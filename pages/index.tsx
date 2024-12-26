@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Join from './Join';
-import { fetchMovementStatus } from '@/service/fetchUser';
+import { fetchMovementStatus, getSimilarity } from '@/service/fetchUser';
 import { useQuery } from 'react-query';
 
 const HomePage = () => {
   const [appId] = useState('5c8ac8416ead4829aa0fa3c9767ea7cb');
   const [streamNames] = useState<string[]>(['2', '2_1', '3', '3_1']); // 스트림 이름을 문자열 배열로 초기화
   const [activeChannelNames, setActiveChannelNames] = useState<string[]>([]); // 활성화된 채널 이름 배열
+  const [cameraNum, setCameraNum] = useState('');
 
   const { data } = useQuery(
     ['movementStatus', streamNames],
@@ -17,6 +18,37 @@ const HomePage = () => {
     }
   );
 
+  useEffect(() => {
+    if (data) {
+      // cameraNum을 업데이트할 변수
+      let newCameraNum = '';
+
+      // data에서 조건에 맞는 카메라 번호 찾기
+      for (const [key, value] of Object.entries(data)) {
+        if (value === true) {
+          // key가 '2'이고, '2_1'은 false인 경우
+          if (key === '2' && data['2_1'] === false) {
+            newCameraNum = 'camera2';
+          }
+          // key가 '3'이고, '3_1'은 false인 경우
+          else if (key === '3' && data['3_1'] === false) {
+            newCameraNum = 'camera3';
+          }
+        }
+      }
+
+      // cameraNum이 변경되었을 때만 업데이트
+      if (newCameraNum && newCameraNum !== cameraNum) {
+        setCameraNum(newCameraNum);
+      }
+    }
+  }, [data, cameraNum]);
+
+  const { data: imageData } = useQuery({
+    queryKey: ['imgData'],
+    queryFn: () => getSimilarity(cameraNum)
+  })
+  console.log(imageData)
   // data가 업데이트될 때마다 activeChannelNames를 업데이트
   useEffect(() => {
     if (data) {
