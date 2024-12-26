@@ -3,11 +3,12 @@ import axios from "axios";
 const backenduri = process.env.NEXT_PUBLIC_API_KEY2
 
 export const fetchMovementStatus = async (streamName: {}) => {
-    const response = await fetch(`${backenduri}/movement_status?stream_names=${streamName}`);
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
+    try {
+        const response = await axios.get(`${backenduri}/movement_status?stream_names=${streamName}`);
+        return response.data;
+    } catch (e) {
+        return null
     }
-    return response.json();
 };
 
 export const getSimilarity = async (camera_num: string) => {
