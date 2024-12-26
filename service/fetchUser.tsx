@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const backenduri = process.env.NEXT_PUBLIC_API_KEY2
+// const backenduri = process.env.NEXT_PUBLIC_API_KEY2
 
 export const fetchMovementStatus = async (streamName: {}) => {
     const response = await fetch(`/movement_status?stream_names=${streamName}`);
