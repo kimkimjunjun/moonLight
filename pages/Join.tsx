@@ -9,8 +9,7 @@ interface JoinProps {
     data: []
 }
 
-export const Join = ({ appId, channelNames, setActiveChannelNames, data }: JoinProps) => {
-    // console.log(channelNames)
+const Join = ({ appId, channelNames, setActiveChannelNames, data }: JoinProps) => {
     return (
         <AgoraProvider appId={appId} channelNames={channelNames}>
             <div className='flex flex-wrap'>
@@ -21,3 +20,6 @@ export const Join = ({ appId, channelNames, setActiveChannelNames, data }: JoinP
         </AgoraProvider>
     );
 };
+
+// 기본 내보내기 추가
+export default Join;

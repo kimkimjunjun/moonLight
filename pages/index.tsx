@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Join } from './Join';
+import Join from './Join';
 import { fetchMovementStatus } from '@/service/fetchUser';
 import { useQuery } from 'react-query';
 
