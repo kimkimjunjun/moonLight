@@ -49,7 +49,7 @@ const HomePage = () => {
     queryFn: () => getSimilarity(cameraNum),
     enabled: !!cameraNum
   })
-  console.log(imageData)
+  console.log(imageData, cameraNum)
   // data가 업데이트될 때마다 activeChannelNames를 업데이트
   useEffect(() => {
     if (data) {
