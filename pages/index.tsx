@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 const HomePage = () => {
   const [appId] = useState('5c8ac8416ead4829aa0fa3c9767ea7cb');
-  const [streamNames] = useState<string[]>(['2', '2_1', '3', '3_1']); // 스트림 이름을 문자열 배열로 초기화
+  const [streamNames] = useState<string[]>(['camera2', 'camera2_1', 'camera3', 'camera3_1']); // 스트림 이름을 문자열 배열로 초기화
   const [activeChannelNames, setActiveChannelNames] = useState<string[]>([]); // 활성화된 채널 이름 배열
   const [cameraNum, setCameraNum] = useState('');
 
@@ -27,11 +27,11 @@ const HomePage = () => {
       for (const [key, value] of Object.entries(data)) {
         if (value === true) {
           // key가 '2'이고, '2_1'은 false인 경우
-          if (key === '2' && data['2_1'] === false) {
+          if (key === 'camera2' && data['camera2_1'] === false) {
             newCameraNum = 'camera2';
           }
           // key가 '3'이고, '3_1'은 false인 경우
-          else if (key === '3' && data['3_1'] === false) {
+          else if (key === 'camera3' && data['camera3_1'] === false) {
             newCameraNum = 'camera3';
           }
         }
@@ -57,11 +57,11 @@ const HomePage = () => {
       Object.entries(data).forEach(([key, value]) => {
         if (value === true) {
           // 2 또는 2_1이 true인 경우
-          if (key === '2' || key === '2_1') {
+          if (key === 'camera2' || key === 'camera2_1') {
             newActiveChannels.push('2');
           }
           // 10 또는 10_1이 true인 경우
-          else if (key === '3' || key === '3_1') {
+          else if (key === 'camera3' || key === 'camera3_1') {
             newActiveChannels.push('3');
           }
         }
