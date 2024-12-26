@@ -46,7 +46,7 @@ const HomePage = () => {
 
   const { data: imageData } = useQuery({
     queryKey: ['imgData'],
-    queryFn: () => getSimilarity(cameraNum),
+    queryFn: () => getSimilarity("camera2"),
     refetchInterval: 1000
   })
   console.log(imageData)
