@@ -5,7 +5,7 @@ import micon from "@/icons/micon.svg";
 import micoff from "@/icons/micoff.svg";
 import dummy from "@/icons/dummy.svg";
 import { useQuery } from 'react-query';
-import getKeyBox, { getGuestMany, getMessageIntro, getSimilarity } from '@/service/getKeyBox';
+import getKeyBox, { getGuestMany, getMessageIntro } from '@/service/getKeyBox';
 import RoominfoSet2 from './KeyBox';
 import { IRemoteAudioTrack, IRemoteVideoTrack } from 'agora-rtc-sdk-ng';
 import calloff from "@/icons/calloff.svg"
