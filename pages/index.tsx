@@ -46,7 +46,7 @@ const HomePage = () => {
 
   const { data: imageData } = useQuery({
     queryKey: ['imgData'],
-    queryFn: () => getSimilarity("camera2"),
+    queryFn: () => getSimilarity(cameraNum),
     enabled: !!cameraNum
   })
   console.log(imageData)
