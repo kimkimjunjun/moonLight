@@ -1,114 +1,72 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import React, { useEffect, useState } from 'react';
+import { Join } from './Join';
+import { fetchMovementStatus } from '@/service/fetchUser';
+import { useQuery } from 'react-query';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const HomePage = () => {
+  const [appId] = useState('5c8ac8416ead4829aa0fa3c9767ea7cb');
+  const [streamNames] = useState<string[]>(['2', '2_1', '3', '3_1']); // 스트림 이름을 문자열 배열로 초기화
+  const [activeChannelNames, setActiveChannelNames] = useState<string[]>([]); // 활성화된 채널 이름 배열
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  const { data } = useQuery(
+    ['movementStatus', streamNames],
+    () => fetchMovementStatus(streamNames.join(',')), // 배열을 문자열로 변환하여 요청
+    {
+      refetchInterval: 1000, // 1초마다 새로 고침
+      enabled: streamNames.length > 0, // streamNames가 비어있지 않을 때만 쿼리 실행
+    }
+  );
 
-export default function Home() {
+  // data가 업데이트될 때마다 activeChannelNames를 업데이트
+  useEffect(() => {
+    if (data) {
+      const newActiveChannels: string[] = [];
+
+      Object.entries(data).forEach(([key, value]) => {
+        if (value === true) {
+          // 2 또는 2_1이 true인 경우
+          if (key === '2' || key === '2_1') {
+            newActiveChannels.push('2');
+          }
+          // 10 또는 10_1이 true인 경우
+          else if (key === '3' || key === '3_1') {
+            newActiveChannels.push('3');
+          }
+        }
+      });
+
+      // 중복된 채널을 제거하고 상태 업데이트
+      const uniqueChannels = [...new Set(newActiveChannels)];
+      const hasNewChannels = uniqueChannels.some(channel => !activeChannelNames.includes(channel));
+
+      if (hasNewChannels) {
+        setActiveChannelNames((prev) => {
+          const updatedChannels = new Set(prev); // 기존 채널을 Set으로 변환하여 중복 제거
+          uniqueChannels.forEach(channel => updatedChannels.add(channel)); // 새로운 채널 추가
+          return Array.from(updatedChannels); // Set을 배열로 변환하여 상태 업데이트
+        });
+      }
+    }
+  }, [data, activeChannelNames]);
+
+  console.log(data, activeChannelNames)
+
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div>
+      {/* {streamNames.map((streamName) => (
+        <img
+          key={streamName} // 고유한 키를 제공
+          className='hidden'
+          src={`http://localhost:5000/video_feed/${streamName}`}
+          alt=''
+          width="400"
+          height="221"
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      ))} */}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      {appId && <Join appId={appId} channelNames={activeChannelNames} setActiveChannelNames={setActiveChannelNames} data={data} />}
     </div>
   );
-}
+};
+
+export default HomePage;

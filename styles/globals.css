@@ -14,8 +14,89 @@
   }
 }
 
+html {
+  font-size: 62.5%;
+  font-family: SUIT;
+}
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 100;
+  src: url('../public/fonts/SUIT-Thin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 200;
+  src: url('../public/fonts/SUIT-ExtraLight.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 300;
+  src: url('../public/fonts/SUIT-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 400;
+  src: url('../public/fonts/SUIT-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 500;
+  src: url('../public/fonts/SUIT-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 600;
+  src: url('../public/fonts/SUIT-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 700;
+  src: url('../public/fonts/SUIT-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 800;
+  src: url('../public/fonts/SUIT-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'SUIT';
+  font-weight: 900;
+  src: url('../public/fonts/SUIT-Heavy.woff2') format('woff2');
+}
+
+.scrollbar1 {
+  overflow-y: auto;
+  z-index: 10;
+  /*  */
+}
+
+/* 스크롤바의 폭 너비 */
+.scrollbar1::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollbar1::-webkit-scrollbar-thumb {
+  background: rgba(186, 144, 139);
+  /* 스크롤바 색상 */
+  border-radius: 10px;
+  /* 스크롤바 둥근 테두리 */
+  border: none;
+}
+
+.scrollbar1::-webkit-scrollbar-track {
+  background: rgba(186, 144, 139, 0.2);
+  /*스크롤바 뒷 배경 색상*/
 }
