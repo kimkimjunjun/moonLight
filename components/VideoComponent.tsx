@@ -274,10 +274,10 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                                             <div key={index} className='flex space-x-1'>
                                                                                 {images.map((img: string, imgIndex: number) => {
                                                                                     console.log(img)
+                                                                                    const base64Image = img
                                                                                     return (
-
                                                                                         <Image
-                                                                                            key={imgIndex}
+                                                                                            key={base64Image}
                                                                                             src={img} // base64 이미지 데이터
                                                                                             width={100}
                                                                                             height={63}
