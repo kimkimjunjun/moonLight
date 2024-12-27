@@ -14,9 +14,10 @@ interface EmploProps {
     roomNames: string;
     guestNames: string;
     setGuestNames: any;
+    roomIded: number;
 }
 
-export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds, keyBoxRefetch, numberId, roomNames, guestNames, setGuestNames }: EmploProps) {
+export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds, keyBoxRefetch, numberId, roomNames, guestNames, setGuestNames, roomIded }: EmploProps) {
     const [roomName, setRoomName] = useState('');
     const [reserName, setReserName] = useState('');
     const [roomIdx, setRoomIdx] = useState<number | null>(null); // roomIdx를 null로 초기화
@@ -27,18 +28,12 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
         enabled: !!roomNames // roomName이 있을 때만 쿼리 실행
     });
 
-    useEffect(() => {
-        if (roomNData) {
-            setRoomIdx(roomNData.room.id); // roomNData가 있을 때 roomIdx 설정
-        }
-    }, [roomNData]); // roomNData가 변경될 때마다 실행
-
     const boxHandler = async () => {
 
         const boxData = {
             storage_id: roomIds,
             number: numberId,
-            room_id: roomIdx, // roomIdx 사용
+            room_id: roomIded, // roomIdx 사용
             checkin_status: 1,
             is_booked: reserName ? 1 : 0, // reserName이 존재하면 1, 그렇지 않으면 0
             is_paid: reserName ? 1 : 0,
@@ -48,7 +43,7 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
         };
 
         try {
-            console.log(boxData, roomIdx);
+            console.log(boxData, roomIded);
             await putKeyBox(boxData);
             closeModal();
             setTimeout(() => {
@@ -80,6 +75,7 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
                             {roomNames}호
                         </div>
                     </div>
+
                     <div className="flex text-[2rem] font-bold mt-[1rem]">
                         <span className="mr-[1rem]">예약자명</span>
                         <input

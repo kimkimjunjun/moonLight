@@ -14,6 +14,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [roomNames, setRoomNames] = useState('');
     const [guestNames, setGuestNames] = useState('');
+    const [roomIded, setRoomIded] = useState(0);
 
 
     const openModal = (data: any) => {
@@ -54,7 +55,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                                     className={`w-[7.7rem] h-[6rem] cursor-pointer border-2 ${data.checkin_status === 1 ? "border-[#7584AE]" :
                                         data.room_id ? "border-[#75AE85]" : "border-[#F1F1F1]"} my-[0.2rem] mx-[0.5rem]`}
 
-                                    onClick={() => openModal(data)}
+                                    onClick={() => { openModal(data); setRoomIded(data.room_id) }}
                                 >
                                     <div className={`w-full py-[0rem] text-[0.8rem] flex ${data.checkin_status === 1 ? "bg-[#7584AE] text-white" : data.room_id ? "bg-[#75AE85] text-white" : "bg-[#F1F1F1] text-black"}`}>
                                         <h1 className='font-semibold flex mx-auto'>{index + 1}</h1>
@@ -66,9 +67,9 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                                             )}
 
                                         </div>
-                                        {data.price_multiplier > 0 && (
+                                        {data.price > 0 && (
                                             <div className='flex'>
-                                                <span className='font-semibold'>{data.price_multiplier}원</span>
+                                                <span className='font-semibold'>{data.price}원</span>
                                             </div>
                                         )}
                                         <div className='flex'>
@@ -80,7 +81,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                         );
                     })}
             </div>
-            <CheckinModal modalIsOpen={modalIsOpen} closeModal={closeModal} hotelId={channelName} roomIds={Number(roomIds)} keyBoxRefetch={keyBoxRefetch} numberId={numberId} roomNames={roomNames} guestNames={guestNames} setGuestNames={setGuestNames} />
+            <CheckinModal modalIsOpen={modalIsOpen} closeModal={closeModal} hotelId={channelName} roomIds={Number(roomIds)} keyBoxRefetch={keyBoxRefetch} numberId={numberId} roomNames={roomNames} guestNames={guestNames} setGuestNames={setGuestNames} roomIded={roomIded} />
         </div >
     )
 }
