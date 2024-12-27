@@ -280,7 +280,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                                                     console.log(img)
                                                                                     const base64Image = img
                                                                                     return (
-                                                                                        <Image
+                                                                                        <img
                                                                                             key={base64Image}
                                                                                             src={img} // base64 이미지 데이터
                                                                                             width={100}
