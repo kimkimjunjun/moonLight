@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 const HomePage = () => {
   const [appId] = useState('5c8ac8416ead4829aa0fa3c9767ea7cb');
-  const [streamNames] = useState<string[]>(['camera2', 'camera2_1', 'camera3', 'camera3_1', 'camera13', 'camera13_1', 'camera13_2']); // 스트림 이름을 문자열 배열로 초기화
+  const [streamNames] = useState<string[]>(['camera13', 'camera13_1', 'camera13_2']); // 스트림 이름을 문자열 배열로 초기화
   const [activeChannelNames, setActiveChannelNames] = useState<string[]>([]); // 활성화된 채널 이름 배열
   const [cameraNum, setCameraNum] = useState('');
 
