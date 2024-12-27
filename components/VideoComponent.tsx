@@ -162,8 +162,11 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 <>
                     {Object.keys(remoteUsers[channelName] || {}).map((uid) => {
                         // console.log(keyData, mgData, gtData, user)
-                        const imgData = gtData?.guests.find((guest: any) => guest.process === 1)?.id_list[1];
-                        const acceptData = gtData?.guests.find((guest: any) => guest.process === 1)?.id;
+                        const guest = gtData?.guests.find((guest: any) => guest.process === 1 && guest.hotel_id === Number(channelName));
+
+                        // guest가 존재할 경우 id_list[1]과 id를 가져옵니다.
+                        const imgData = guest?.id_list[1];
+                        const acceptData = guest?.id;
                         // const videoFeedUrls = {
                         //     2: [
                         //         "http://localhost:5000/video_feed/hotel4",
