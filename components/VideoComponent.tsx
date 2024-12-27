@@ -167,6 +167,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                         // guest가 존재할 경우 id_list[1]과 id를 가져옵니다.
                         const imgData = guest?.id_list[1];
                         const acceptData = guest?.id;
+                        console.log(imgData)
                         // const videoFeedUrls = {
                         //     2: [
                         //         "http://localhost:5000/video_feed/hotel4",
