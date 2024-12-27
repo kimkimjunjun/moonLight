@@ -118,7 +118,7 @@ const HomePage = () => {
         />
       ))} */}
 
-      {appId && <Join appId={appId} channelNames={activeChannelNames} setActiveChannelNames={setActiveChannelNames} data={data} />}
+      {appId && <Join appId={appId} channelNames={activeChannelNames} setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />}
     </div>
   );
 };

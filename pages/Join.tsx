@@ -6,16 +6,17 @@ interface JoinProps {
     appId: string;
     channelNames: string[];
     setActiveChannelNames: React.Dispatch<React.SetStateAction<string[]>>;
-    data: []
+    data: [];
+    imageData: [];
 }
 
-const Join = ({ appId, channelNames, setActiveChannelNames, data }: JoinProps) => {
+const Join = ({ appId, channelNames, setActiveChannelNames, data, imageData }: JoinProps) => {
     return (
         <AgoraProvider appId={appId} channelNames={channelNames}>
             <div className='flex flex-wrap'>
-                <VideoComponent channelName="2" setActiveChannelNames={setActiveChannelNames} data={data} />
-                <VideoComponent channelName="3" setActiveChannelNames={setActiveChannelNames} data={data} />
-                <VideoComponent channelName="13" setActiveChannelNames={setActiveChannelNames} data={data} />
+                <VideoComponent channelName="2" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />
+                <VideoComponent channelName="3" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />
+                <VideoComponent channelName="13" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />
             </div>
         </AgoraProvider>
     );

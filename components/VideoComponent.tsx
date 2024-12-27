@@ -21,9 +21,10 @@ interface VideoComponentProps {
     channelName: string; // channelName prop 추가
     setActiveChannelNames: any;
     data: [];
+    imageData: [];
 }
 
-const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveChannelNames, data }) => {
+const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveChannelNames, data, imageData }) => {
     const { remoteUsers, localTracks, clients } = useAgora();
     const [isMouseDown, setIsMouseDown] = useState<{ [key: number]: boolean }>({});
     const [isMicPublished, setIsMicPublished] = useState<{ [key: number]: boolean }>({});
@@ -266,10 +267,23 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                 <div className='flex'>
                                                     <div className='flex flex-col'>
                                                         <div className='flex space-x-1 mt-[0.5rem]'>
-                                                            <div className='flex space-x-1 border border-black p-[0.5rem]'>
-                                                                <Image src={dummy} width={100} height={63} alt='' />
-                                                                <Image src={dummy} width={100} height={63} alt='' />
-                                                                <Image src={dummy} width={100} height={63} alt='' />
+                                                            <div className='border border-black p-[0.5rem]'>
+                                                                {
+                                                                    imageData && Object.values(imageData).map((images: string[], index: number) => {
+                                                                        return (
+                                                                            <div key={index} className='flex space-x-1'>
+                                                                                {images.map((img: string, imgIndex: number) => (
+                                                                                    <Image
+                                                                                        key={imgIndex}
+                                                                                        src={img} // base64 이미지 데이터
+                                                                                        width={100}
+                                                                                        height={63}
+                                                                                        alt={`Image ${imgIndex + 1}`}
+                                                                                    />
+                                                                                ))}
+                                                                            </div>
+                                                                        );
+                                                                    })}
                                                             </div>
                                                             <div className='flex space-x-1 border border-black p-[0.5rem]'>
                                                                 <Image src={dummy} width={100} height={63} alt='' />
