@@ -30,6 +30,9 @@ const HomePage = () => {
           if (key === 'camera2' && data['camera2_1'] === false) {
             newCameraNum = 'camera2';
           }
+          else if (key === 'camera2_1' && data['camera2'] === false) {
+            putUpdateImg("camera2");
+          }
           // key가 '3'이고, '3_1'은 false인 경우
           else if (key === 'camera3' && data['camera3_1'] === false) {
             newCameraNum = 'camera3';
