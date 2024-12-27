@@ -47,7 +47,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
         enabled: !!Number(channelName),
     })
 
-    const { data: gtData, isLoading } = useQuery({
+    const { data: gtData, isLoading, refetch: gtRefetch } = useQuery({
         queryKey: ['Guestdata', Number(channelName)],
         queryFn: () => getGuestMany(Number(channelName)),
         enabled: !!Number(channelName),
@@ -204,7 +204,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                         ) : (
                                                             <Image src={imgData} alt='' width={350} height={100} />
                                                         )}
-
+                                                        <button onClick={() => gtRefetch()}>갱신</button>
                                                         <div className='flex text-[1.2rem]'>
                                                             <button className='w-full border border-black py-[1rem]' onClick={() => handleRefuse(acceptData)}>거부</button>
                                                             <button className='w-full border border-black py-[1rem] ml-[1rem]' onClick={() => handleChecking(acceptData)}>승인</button>
