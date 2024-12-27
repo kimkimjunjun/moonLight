@@ -272,15 +272,19 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                                     imageData && Object.values(imageData).map((images: string[], index: number) => {
                                                                         return (
                                                                             <div key={index} className='flex space-x-1'>
-                                                                                {images.map((img: string, imgIndex: number) => (
-                                                                                    <Image
-                                                                                        key={imgIndex}
-                                                                                        src={img} // base64 이미지 데이터
-                                                                                        width={100}
-                                                                                        height={63}
-                                                                                        alt={`Image ${imgIndex + 1}`}
-                                                                                    />
-                                                                                ))}
+                                                                                {images.map((img: string, imgIndex: number) => {
+                                                                                    console.log(img)
+                                                                                    return (
+
+                                                                                        <Image
+                                                                                            key={imgIndex}
+                                                                                            src={img} // base64 이미지 데이터
+                                                                                            width={100}
+                                                                                            height={63}
+                                                                                            alt={`Image ${imgIndex + 1}`}
+                                                                                        />
+                                                                                    )
+                                                                                })}
                                                                             </div>
                                                                         );
                                                                     })}
