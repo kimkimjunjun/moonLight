@@ -49,6 +49,14 @@ const HomePage = () => {
       // cameraNum이 변경되었을 때만 업데이트
       if (newCameraNum && newCameraNum !== cameraNum) {
         setCameraNum(newCameraNum);
+
+        // 10초 후에 cameraNum을 빈 문자열로 설정
+        const timeoutId = setTimeout(() => {
+          setCameraNum('');
+        }, 10000);
+
+        // cleanup function to clear the timeout if the component unmounts or if data changes
+        return () => clearTimeout(timeoutId);
       }
     }
   }, [data, cameraNum]);
