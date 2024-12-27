@@ -273,30 +273,41 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                         <div className='flex space-x-1 mt-[0.5rem]'>
                                                             <div className='border border-black p-[0.5rem]'>
                                                                 {
-                                                                    imageData && Object.values(imageData).map((images: string[], index: number) => {
+                                                                    imageData && Object.values(imageData).map((arrayOfImages: any[], index: number) => {
                                                                         return (
                                                                             <div key={index} className='flex space-x-1'>
-                                                                                {images.map((img: string, imgIndex: number) => {
-                                                                                    console.log(img)
-                                                                                    const base64Image = img
-                                                                                    return (
-                                                                                        <img
-                                                                                            key={base64Image}
-                                                                                            src={img} // base64 이미지 데이터
-                                                                                            width={100}
-                                                                                            height={63}
-                                                                                            alt={`Image ${imgIndex + 1}`}
-                                                                                        />
-                                                                                    )
-                                                                                })}
+                                                                                {arrayOfImages[0]?.map((img: string, imgIndex: number) => (
+                                                                                    <img
+                                                                                        key={imgIndex} // 각 이미지의 고유 키
+                                                                                        src={img} // Base64 이미지 데이터
+                                                                                        width={100}
+                                                                                        height={63}
+                                                                                        alt={`Image ${imgIndex + 1}`}
+                                                                                    />
+                                                                                ))}
                                                                             </div>
                                                                         );
-                                                                    })}
+                                                                    })
+                                                                }
                                                             </div>
                                                             <div className='flex space-x-1 border border-black p-[0.5rem]'>
-                                                                <Image src={dummy} width={100} height={63} alt='' />
-                                                                <Image src={dummy} width={100} height={63} alt='' />
-                                                                <Image src={dummy} width={100} height={63} alt='' />
+                                                                {
+                                                                    imageData && Object.values(imageData).map((arrayOfImages: any[], index: number) => {
+                                                                        return (
+                                                                            <div key={index} className='flex space-x-1'>
+                                                                                {arrayOfImages[1]?.map((img: string, imgIndex: number) => (
+                                                                                    <img
+                                                                                        key={imgIndex} // 각 이미지의 고유 키
+                                                                                        src={img} // Base64 이미지 데이터
+                                                                                        width={100}
+                                                                                        height={63}
+                                                                                        alt={`Image ${imgIndex + 1}`}
+                                                                                    />
+                                                                                ))}
+                                                                            </div>
+                                                                        );
+                                                                    })
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
