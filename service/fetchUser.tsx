@@ -19,3 +19,13 @@ export const getSimilarity = async (camera_num: string) => {
     }
 
 };
+
+export const putUpdateImg = async (camera_num: string) => {
+    try {
+        const res = await axios.put(`/update_image_dataset?camera_num=${camera_num}`);
+        console.log(res)
+        return res.data
+    } catch (e) {
+        return null;
+    }
+}

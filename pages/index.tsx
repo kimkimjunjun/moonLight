@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Join from './Join';
-import { fetchMovementStatus, getSimilarity } from '@/service/fetchUser';
+import { fetchMovementStatus, getSimilarity, putUpdateImg } from '@/service/fetchUser';
 import { useQuery } from 'react-query';
 
 const HomePage = () => {
@@ -36,6 +36,9 @@ const HomePage = () => {
           }
           else if (key === 'camera13' && data['camera13_1'] === false) {
             newCameraNum = 'camera13';
+          }
+          else if (key === 'camera13_1' || key === 'camera13_2' && data['camera13'] === false) {
+            putUpdateImg("camera13");
           }
         }
       }
