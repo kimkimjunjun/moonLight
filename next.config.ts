@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/:path*",
-        destination: "http://223.130.150.200:4040/:path*"
+        destination: "http://localhost:8000/:path*"
       },
     ];
   },
