@@ -158,6 +158,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button className='px-[2rem] py-[1rem] text-[2rem] border border-black'>{channelName}번 호텔 아고라 통화종료</button>
             {(isCallActive && Number(channelName) < 50) && (
                 <>
                     {Object.keys(remoteUsers[channelName] || {}).map((uid) => {
