@@ -207,8 +207,8 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                         )}
                                                         <button onClick={() => gtRefetch()}>갱신</button>
                                                         <div className='flex text-[1.2rem]'>
-                                                            <button className='w-full border border-black py-[1rem]' onClick={() => handleRefuse(acceptData)}>거부</button>
-                                                            <button className='w-full border border-black py-[1rem] ml-[1rem]' onClick={() => handleChecking(acceptData)}>승인</button>
+                                                            <button className='w-full border border-black py-[1rem]' onClick={() => { handleRefuse(acceptData); alert('승인거부되었습니다.') }}>거부</button>
+                                                            <button className='w-full border border-black py-[1rem] ml-[1rem]' onClick={() => { handleChecking(acceptData); alert("승인처리되었습니다.") }}>승인</button>
                                                         </div>
                                                     </div>
                                                     <div className='flex flex-col ml-[1rem]'>

@@ -15,19 +15,27 @@ interface EmploProps {
     guestNames: string;
     setGuestNames: any;
     roomIded: number;
+    selecetData: any;
 }
 
-export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds, keyBoxRefetch, numberId, roomNames, guestNames, setGuestNames, roomIded }: EmploProps) {
+export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds, keyBoxRefetch, numberId, roomNames, guestNames, setGuestNames, roomIded, selecetData }: EmploProps) {
     const [roomName, setRoomName] = useState('');
     const [reserName, setReserName] = useState('');
     const [roomIdx, setRoomIdx] = useState<number | null>(null); // roomIdx를 null로 초기화
+
+    useEffect(() => {
+        if (selecetData) {
+            setRoomName(selecetData.room_name);
+            setReserName(selecetData.guest_name);
+        }
+    }, [selecetData]);
 
     const { data: roomNData, refetch: nameRefetch } = useQuery({
         queryKey: ['roomNdata', roomNames], // roomName을 queryKey에 추가하여 변경 시 refetch
         queryFn: () => getRoomNameId(roomNames, hotelId),
         enabled: !!roomNames // roomName이 있을 때만 쿼리 실행
     });
-
+    console.log(selecetData)
     const boxHandler = async () => {
 
         const boxData = {
@@ -38,7 +46,6 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
             is_booked: reserName ? 1 : 0, // reserName이 존재하면 1, 그렇지 않으면 0
             is_paid: reserName ? 1 : 0,
             ...(reserName && { guest_name: reserName }), // reserName이 존재하면 guest_name 추가
-            ...(guestNames && { guest_name: guestNames }),
             has_key: 1
         };
 
@@ -81,7 +88,7 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
                         <input
                             className="bg-[#F0F0F0] outline-none w-[16rem] flex rounded-[1rem] px-[1rem]"
                             type="text"
-                            value={guestNames ? guestNames : reserName} // guestNames가 존재하면 그 값을 사용, 아니면 reserName 사용
+                            value={reserName} // guestNames가 존재하면 그 값을 사용, 아니면 reserName 사용
                             onChange={(e) => {
                                 setReserName(e.target.value); // 입력값 변경 시 reserName 업데이트
                             }}

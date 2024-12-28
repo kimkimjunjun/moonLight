@@ -15,6 +15,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
     const [roomNames, setRoomNames] = useState('');
     const [guestNames, setGuestNames] = useState('');
     const [roomIded, setRoomIded] = useState(0);
+    const [selecetData, setSelectData] = useState([]);
 
 
     const openModal = (data: any) => {
@@ -25,6 +26,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
         if (data.guest_name) {
             setGuestNames(data.guest_name);
         }
+        setSelectData(data);
     }
 
     const closeModal = () => {
@@ -81,7 +83,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                         );
                     })}
             </div>
-            <CheckinModal modalIsOpen={modalIsOpen} closeModal={closeModal} hotelId={channelName} roomIds={Number(roomIds)} keyBoxRefetch={keyBoxRefetch} numberId={numberId} roomNames={roomNames} guestNames={guestNames} setGuestNames={setGuestNames} roomIded={roomIded} />
+            <CheckinModal modalIsOpen={modalIsOpen} closeModal={closeModal} hotelId={channelName} roomIds={Number(roomIds)} keyBoxRefetch={keyBoxRefetch} numberId={numberId} roomNames={roomNames} guestNames={guestNames} setGuestNames={setGuestNames} roomIded={roomIded} selecetData={selecetData} />
         </div >
     )
 }
