@@ -28,8 +28,8 @@ const HomePage = () => {
         if (value === true) {
           // key가 '2'이고, '2_1'은 false인 경우
 
-          if (key === 'camera13' && data['camera13_1'] === false) {
-            newCameraNum = 'camera13';
+          if (key === 'camera13_1' || key === 'camera13_2') {
+            newCameraNum = 'camera13_3';
           }
           else if (key === 'camera13_1' || key === 'camera13_2' && data['camera13'] === false) {
             putUpdateImg("camera13");
