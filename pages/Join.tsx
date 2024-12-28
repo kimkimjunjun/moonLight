@@ -16,7 +16,8 @@ const Join = ({ appId, channelNames, setActiveChannelNames, data, imageData }: J
             <div className='flex flex-wrap'>
                 {/* <VideoComponent channelName="2" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />
                 <VideoComponent channelName="3" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} /> */}
-                <VideoComponent channelName="13" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />
+                <VideoComponent channelName="13_13" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />
+                <VideoComponent channelName="13_14" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />
             </div>
         </AgoraProvider>
     );

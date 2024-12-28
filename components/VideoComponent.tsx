@@ -163,7 +163,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                     {channelName}번 호텔 아고라 통화종료
                 </button>
             )}
-            {(isCallActive && Number(channelName) < 50) && (
+            {isCallActive && (
                 <>
                     {Object.keys(remoteUsers[channelName] || {}).map((uid) => {
                         // console.log(keyData, mgData, gtData, user)
