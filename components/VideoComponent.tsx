@@ -20,12 +20,11 @@ interface IRemoteUser {
 interface VideoComponentProps {
     channelName: string; // channelName prop 추가
     setActiveChannelNames: any;
-    data: [];
     imageData: [];
     channelNames: string[];
 }
 
-const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveChannelNames, data, imageData, channelNames }) => {
+const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveChannelNames, imageData, channelNames }) => {
     const { remoteUsers, localTracks, clients } = useAgora();
     const [isMouseDown, setIsMouseDown] = useState<{ [key: number]: boolean }>({});
     const [isMicPublished, setIsMicPublished] = useState<{ [key: number]: boolean }>({});
@@ -158,7 +157,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            {(channelNames.includes(channelName)) && (
+            {Array.isArray(channelNames) && channelNames.includes(channelName) && (
                 <button className='px-[2rem] py-[1rem] text-[2rem] border border-black' onClick={handleCallEnd}>
                     {channelName}번 호텔 아고라 통화종료
                 </button>
