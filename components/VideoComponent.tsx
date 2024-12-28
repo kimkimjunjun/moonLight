@@ -36,22 +36,23 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
 
     const { data: keyData, refetch: keyBoxRefetch } = useQuery({
-        queryKey: ['keydata', Number(channelName)],
-        queryFn: () => getKeyBox(Number(channelName)),
-        enabled: !!Number(channelName),
+        queryKey: ['keydata', Number(channelName.split('_')[0])],
+        queryFn: () => getKeyBox(Number(channelName.split('_')[0])),
+        enabled: !!Number(channelName.split('_')[0]),
     })
 
     const { data: mgData } = useQuery({
-        queryKey: ['Mgdata', Number(channelName)],
-        queryFn: () => getMessageIntro(Number(channelName)),
-        enabled: !!Number(channelName),
+        queryKey: ['Mgdata', Number(channelName.split('_')[0])],
+        queryFn: () => getMessageIntro(Number(channelName.split('_')[0])),
+        enabled: !!Number(channelName.split('_')[0]),
     })
 
     const { data: gtData, isLoading, refetch: gtRefetch } = useQuery({
-        queryKey: ['Guestdata', Number(channelName)],
-        queryFn: () => getGuestMany(Number(channelName)),
-        enabled: !!Number(channelName),
-    })
+        queryKey: ['Guestdata', Number(channelName.split('_')[0])], // _ 이전 부분만 사용
+        queryFn: () => getGuestMany(Number(channelName.split('_')[0])), // _ 이전 부분만 사용
+        enabled: !!Number(channelName.split('_')[0]),
+    });
+
     // const [streamNames] = useState<string[]>(['2', '2_1', '3', '3_1']);
     //     const { data: simData } = useQuery({
     //         queryKey: ['simData'],
@@ -94,7 +95,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 }
 
                 if (user.audioTrack) {
-                    if (Number(uid) < 30) {
+                    if (Number(uid) < 3000) {
                         user.audioTrack.play();
                     } else {
                         user.audioTrack.stop();
@@ -154,7 +155,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
             return null;
         }
     }
-
+    console.log(clients)
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             {Array.isArray(channelNames) && channelNames.includes(channelName) && (
@@ -166,12 +167,12 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 <>
                     {Object.keys(remoteUsers[channelName] || {}).map((uid) => {
                         // console.log(keyData, mgData, gtData, user)
-                        const guest = gtData?.guests.find((guest: any) => guest.process === 1 && guest.hotel_id === Number(channelName));
+                        const guest = gtData?.guests.find((guest: any) => guest.process === 1 && guest.hotel_id === Number(channelName.split('_')[0]));
 
                         // guest가 존재할 경우 id_list[1]과 id를 가져옵니다.
                         const imgData = guest?.id_list[1];
                         const acceptData = guest?.id;
-                        console.log(imgData)
+                        console.log(acceptData, gtData)
                         // const videoFeedUrls = {
                         //     2: [
                         //         "http://localhost:5000/video_feed/hotel4",

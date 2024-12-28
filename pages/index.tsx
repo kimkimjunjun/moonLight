@@ -69,10 +69,11 @@ const HomePage = () => {
 
           if (key === 'camera13_1' || key === 'camera13_2') {
             newActiveChannels.push('13_13');
-          }
-          else if (key === 'camera13_1' || key === 'camera13_2' || key === 'camera13_3') {
             newActiveChannels.push('13_14');
           }
+          // else if (key === 'camera13_1' || key === 'camera13_2') {
+
+          // }
         }
       });
 
