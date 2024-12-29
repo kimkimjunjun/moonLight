@@ -236,7 +236,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                                     return (
                                                                         <div className={`w-full flex px-[1rem] py-[1rem] bg-white border-b border-[#CCCCCC]`} key={mgData.createdAt} >
                                                                             <div className="w-[75%]">
-                                                                                <span className={`text-[0.95rem] font-medium`}>
+                                                                                <span className={`text-[0.95rem] font-medium whitespace-pre-line text-ellipsis`}>
                                                                                     {mgDatas.content}
                                                                                 </span>
                                                                             </div>
