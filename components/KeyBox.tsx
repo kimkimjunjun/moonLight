@@ -43,7 +43,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
     // console.log(keyData)
     return (
         <div className='flex flex-col'>
-            <div className="flex flex-col flex-wrap h-[33rem]">
+            <div className="flex flex-col flex-wrap h-[25rem]">
                 {keyData?.storages
                     .map((data: any, index: number) => {
                         const matchedRoomIds = gtData?.guests?.filter((guest: any) => guest.process === 1).map((guest: any) => guest.room_id) || [];
@@ -55,7 +55,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                             <div className={`border ${isBorderVisible ? " border-blue-400" : "border-none"}`} key={index}>
                                 <div
                                     className={`w-[7.7rem] h-[6rem] cursor-pointer border-2 ${data.checkin_status === 1 ? "border-[#7584AE]" :
-                                        data.room_id ? "border-[#75AE85]" : "border-[#F1F1F1]"} my-[0.2rem] mx-[0.5rem]`}
+                                        data.room_id ? "border-[#75AE85]" : "border-[#F1F1F1]"} my-[0.2rem] mx-[0.3rem]`}
 
                                     onClick={() => { openModal(data); setRoomIded(data.room_id) }}
                                 >

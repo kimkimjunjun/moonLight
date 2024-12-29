@@ -206,15 +206,18 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                 <div className='flex'>
                                                     <div className='flex flex-col'>
                                                         {isLoading ? (
-                                                            <Image src={dummy} alt='' width={350} height={100} />
+                                                            <Image src={dummy} alt='' width={280} height={100} />
                                                         ) : (
-                                                            <Image src={imgData} alt='' width={350} height={100} />
+                                                            <Image src={imgData} alt='' width={280} height={100} />
                                                         )}
                                                         <button onClick={() => gtRefetch()}>갱신</button>
-                                                        <div className='flex text-[1.2rem]'>
-                                                            <button className='w-full border border-black py-[1rem]' onClick={() => { handleRefuse(acceptData); alert('승인거부되었습니다.') }}>거부</button>
-                                                            <button className='w-full border border-black py-[1rem] ml-[1rem]' onClick={() => { handleChecking(acceptData); alert("승인처리되었습니다.") }}>승인</button>
-                                                        </div>
+                                                        {channelName.split('_')[0] === channelName.split('_')[1] && (
+                                                            <div className='flex text-[1.2rem]'>
+                                                                <button className='w-full border border-black py-[1rem]' onClick={() => { handleRefuse(acceptData); alert('승인거부되었습니다.') }}>거부</button>
+                                                                <button className='w-full border border-black py-[1rem] ml-[1rem]' onClick={() => { handleChecking(acceptData); alert("승인처리되었습니다.") }}>승인</button>
+                                                            </div>
+                                                        )}
+
                                                     </div>
                                                     <div className='flex flex-col ml-[1rem]'>
                                                         <div className='w-[28rem] h-[10rem] flex flex-col scrollbar1 border border-[#EDEDED]'>
@@ -319,7 +322,9 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                 </div>
                                             </div>
                                         </div>
-                                        <RoominfoSet2 channelName={uid} keyData={keyData} keyBoxRefetch={keyBoxRefetch} gtData={gtData} />
+                                        {channelName.split('_')[0] === channelName.split('_')[1] && (
+                                            <RoominfoSet2 channelName={uid} keyData={keyData} keyBoxRefetch={keyBoxRefetch} gtData={gtData} />
+                                        )}
                                     </div>
                                 </div>
 
