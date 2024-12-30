@@ -84,7 +84,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 const user: IRemoteUser = users[Number(uid)];
                 // console.log(user);
                 if (user.videoTrack) {
-                    setIsCallActive(true);
+
                     const videoElementId = `user-video-${uid}`;
                     const videoElement = document.getElementById(videoElementId);
                     if (videoElement) {
@@ -95,6 +95,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 }
 
                 if (user.audioTrack) {
+                    setIsCallActive(true);
                     if (Number(uid) < 30000) {
                         user.audioTrack.play();
                     } else {
