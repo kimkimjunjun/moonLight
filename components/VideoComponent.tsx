@@ -323,12 +323,12 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                         })}
                     </>
                 ) : (
-                    <div className='w-[83rem] flex flex-col ml-[1rem] mr-[28rem]'>
-                        <video
-                            className='w-[83rem] h-[42rem] bg-black'
-                            style={{
-                                backgroundColor: 'black',
-                            }} />
+                    <div className='w-[83rem] flex flex-col ml-[1rem] mr-[28rem] mb-[1rem]'>
+                        <span
+                            className='w-[83rem] h-[42rem] bg-black text-white text-[2rem]'
+                        >
+                            {channelName}번 모텔
+                        </span>
                     </div>
                 )}
 
