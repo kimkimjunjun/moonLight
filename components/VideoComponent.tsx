@@ -176,6 +176,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                             // guest가 존재할 경우 id_list[1]과 id를 가져옵니다.
                             const imgData = guest?.id_list[1];
                             const acceptData = guest?.id;
+                            const guestNames = guest?.name;
                             console.log(acceptData, gtData, uid)
                             // const videoFeedUrls = {
                             //     2: [
@@ -208,7 +209,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                         const timePart = now.toTimeString().split(' ')[0].replace(/:/g, ':'); // HH_mm_ss 형식
                                         const motelName = `${channelName.split('_')[0]}번모텔`; // 모텔 이름
 
-                                        const filename = `${datePart}/${timePart}/${motelName}.png`; // 파일명 설정
+                                        const filename = `${datePart}/${timePart}/${motelName}/${guestNames}.png`; // 파일명 설정
 
                                         // 이미지 파일로 변환
                                         canvas.toBlob((blob) => {
