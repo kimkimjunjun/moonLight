@@ -225,7 +225,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
                                                         </div>
                                                         <div className='flex'>
-                                                            <button className={`w-full h-[4rem] text-[2rem] border border-black mt-[1rem] flex items-center justify-center mr-[1rem]`} onClick={() => gtRefetch()}>갱신</button>
+                                                            <button className={`w-full h-[4rem] text-[2rem] border border-black mt-[1rem] flex items-center justify-center mr-[1rem]`} onClick={() => { gtRefetch(); keyBoxRefetch(); }}>갱신</button>
                                                             <button
                                                                 className={`w-full h-[4rem] text-[2rem] border border-black mt-[1rem] flex items-center justify-center ${isMouseDown[Number(uid)] ? 'bg-gray-300' : 'bg-transparent'}`}
                                                                 onMouseDown={() => {
