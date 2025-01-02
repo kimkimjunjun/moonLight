@@ -160,6 +160,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
 
 
+
     console.log(clients, remoteUsers, channelName)
     return (
         <div style={{ display: 'flex' }}>
@@ -186,6 +187,44 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                             //         "http://localhost:5000/video_feed/hotel3",
                             //     ],
                             // }[uid] || [];
+                            const captureImage = (uid: string) => {
+                                const video = document.getElementById(`user-video-${uid}`) as HTMLVideoElement | null;
+
+                                if (video) { // 비디오 요소가 존재하는지 확인
+                                    const canvas = document.createElement('canvas');
+                                    const context = canvas.getContext('2d');
+
+                                    if (context) { // context가 null이 아닐 때만 진행
+                                        // 캔버스 크기를 비디오 크기에 맞게 설정
+                                        canvas.width = video.videoWidth;
+                                        canvas.height = video.videoHeight;
+
+                                        // 비디오의 현재 프레임을 캔버스에 그리기
+                                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                                        // 현재 시간을 포맷팅하여 파일명으로 사용
+                                        const now = new Date();
+                                        const datePart = now.toISOString().split('T')[0].replace(/-/g, '.'); // YYYY.MM.DD 형식
+                                        const timePart = now.toTimeString().split(' ')[0].replace(/:/g, ':'); // HH_mm_ss 형식
+                                        const motelName = `${channelName.split('_')[0]}번모텔`; // 모텔 이름
+
+                                        const filename = `${datePart}/${timePart}/${motelName}.png`; // 파일명 설정
+
+                                        // 이미지 파일로 변환
+                                        canvas.toBlob((blob) => {
+                                            if (blob) {
+                                                const link = document.createElement('a');
+                                                link.href = URL.createObjectURL(blob);
+                                                link.download = filename; // 수정된 파일명 사용
+                                                link.click();
+                                            }
+                                        }, 'image/png');
+                                    }
+                                } else {
+                                    console.error(`Video element with ID user-video-${uid} not found.`);
+                                }
+                            };
+
                             return (
                                 <div key={uid} id={`remote-video-${uid}`} style={{ width: '100%', height: '100%', marginBottom: '10px' }}>
 
@@ -254,8 +293,11 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
                                                         통화종료
                                                     </button> */}
-                                                        </div>
 
+                                                        </div>
+                                                        <button className='w-full h-[4rem] border border-black mt-[1rem] text-[2rem]' onClick={() => captureImage(uid)} >
+                                                            이미지캡쳐
+                                                        </button>
                                                     </div>
                                                     <div className='flex'>
                                                         <div className='flex flex-col'>
