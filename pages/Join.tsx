@@ -17,9 +17,9 @@ const Join = ({ appId, channelNames, setActiveChannelNames, imageData }: JoinPro
                 <VideoComponent channelName="3" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} /> */}
                 <VideoComponent channelName="13_13" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
                 <VideoComponent channelName="13_14" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
-                <VideoComponent channelName="14_14" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
+                {/* <VideoComponent channelName="14_14" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
                 <VideoComponent channelName="15_15" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
-                <VideoComponent channelName="16_16" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
+                <VideoComponent channelName="16_16" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} /> */}
             </div>
         </AgoraProvider>
     );

@@ -59,7 +59,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
 
                                     onClick={() => { openModal(data); setRoomIded(data.room_id) }}
                                 >
-                                    <div className={`w-full py-[0rem] text-[0.8rem] flex ${data.checkin_status === 1 ? "bg-[#7584AE] text-white" : data.room_id ? "bg-[#75AE85] text-white" : "bg-[#F1F1F1] text-black"}`}>
+                                    <div className={`w-full text-[0.8rem] flex ${data.checkin_status === 1 ? "bg-[#7584AE] text-white" : data.room_id ? "bg-[#75AE85] text-white" : "bg-[#F1F1F1] text-black"}`}>
                                         <h1 className='font-semibold flex mx-auto'>{index + 1}</h1>
                                     </div>
                                     <div className='flex flex-col p-[0.3rem] text-[0.8rem]'>
