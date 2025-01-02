@@ -129,6 +129,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
     const handleCallEnd = async () => {
         const client = clients[channelName];
+        console.log(client)
         if (client) {
             await client.leave(); // Agora 채널 나가기
             setIsCallActive(false); // 통화 상태를 비활성화하여 UI 숨기기
@@ -159,7 +160,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
 
 
-    console.log(clients, remoteUsers)
+    console.log(clients, remoteUsers, channelName)
     return (
         <div style={{ display: 'flex' }}>
 
@@ -189,24 +190,15 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                 <div key={uid} id={`remote-video-${uid}`} style={{ width: '100%', height: '100%', marginBottom: '10px' }}>
 
                                     <div className='flex ml-[1rem]'>
-                                        {remoteUsers ? (
-                                            <video
-                                                id={`user-video-${uid}`}
-                                                className='w-[83rem] h-[42rem]'
-                                                style={{
-                                                    backgroundColor: 'black',
-                                                }}
-                                                controls
-                                            />
-                                        ) : (
-                                            <video
-                                                className='w-[83rem] h-[42rem]'
-                                                style={{
-                                                    backgroundColor: 'black',
-                                                }}
-                                                controls
-                                            />
-                                        )}
+                                        <video
+                                            id={`user-video-${uid}`}
+                                            className='w-[83rem] h-[42rem]'
+                                            style={{
+                                                backgroundColor: 'black',
+                                            }}
+                                            controls
+                                        />
+
 
                                         <div className='flex space-x-4'>
                                             {/* {videoFeedUrls.map((url, index) => (

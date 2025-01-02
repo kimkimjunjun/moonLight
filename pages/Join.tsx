@@ -13,13 +13,14 @@ const Join = ({ appId, channelNames, setActiveChannelNames, imageData }: JoinPro
     return (
         <AgoraProvider appId={appId} channelNames={channelNames}>
             <div className='flex flex-wrap'>
-                {/* <VideoComponent channelName="2" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} />
-                <VideoComponent channelName="3" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} /> */}
+
+                {/* <VideoComponent channelName="3" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} /> */}
                 <VideoComponent channelName="13_13" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
                 <VideoComponent channelName="13_14" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
                 {/* <VideoComponent channelName="14_14" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
                 <VideoComponent channelName="15_15" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
                 <VideoComponent channelName="16_16" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} /> */}
+                <VideoComponent channelName="2_2" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
             </div>
         </AgoraProvider>
     );
