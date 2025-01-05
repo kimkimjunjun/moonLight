@@ -29,7 +29,7 @@ const Join = ({ appId, channelNames, setActiveChannelNames, imageData, activeCha
                 <div className="flex flex-col fixed right-4 top-10">
                     {channelNamed.map((channelName, index) => {
                         // activeChannelNames에 포함되어 있는지 확인
-                        const isActive = activeChannelNames.includes(channelName);
+                        const isActive = activeChannelNames?.includes(channelName);
                         return (
                             <button
                                 key={index}
