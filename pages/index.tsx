@@ -57,7 +57,7 @@ const HomePage = () => {
     queryFn: () => getSimilarity(cameraNum),
     enabled: !!cameraNum
   })
-  console.log(imageData, cameraNum)
+  // console.log(imageData, cameraNum)
   // data가 업데이트될 때마다 activeChannelNames를 업데이트
   useEffect(() => {
     if (data) {
@@ -115,7 +115,7 @@ const HomePage = () => {
         />
       ))} */}
 
-      {appId && <Join appId={appId} channelNames={activeChannelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />}
+      {appId && <Join appId={appId} channelNames={activeChannelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} activeChannelNames={activeChannelNames} />}
     </div>
   );
 };

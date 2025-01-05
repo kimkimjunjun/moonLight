@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { AgoraProvider } from '../components/AgoraContext';
 import VideoComponent from '../components/VideoComponent';
 
@@ -7,20 +7,58 @@ interface JoinProps {
     channelNames: string[];
     setActiveChannelNames: React.Dispatch<React.SetStateAction<string[]>>;
     imageData: [];
+    activeChannelNames: string[];
 }
 
-const Join = ({ appId, channelNames, setActiveChannelNames, imageData }: JoinProps) => {
+const Join = ({ appId, channelNames, setActiveChannelNames, imageData, activeChannelNames }: JoinProps) => {
+    // 각 VideoComponent에 대한 refs 생성
+    const videoRefs = useRef<(HTMLDivElement | null)[]>([]);
+    const [channelNamed] = useState(["13_13", "13_14", "14_14", "15_15", "16_16", "2_2"]);
+
+    // 버튼 클릭 시 해당 VideoComponent로 스크롤하는 함수
+    const scrollToVideo = (index: number) => {
+        if (videoRefs.current[index]) {
+            videoRefs.current[index]?.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <AgoraProvider appId={appId} channelNames={channelNames}>
-            <div className='flex flex-wrap'>
+            <div className="flex">
+                {/* 버튼 영역 */}
+                <div className="flex flex-col fixed right-4 top-10">
+                    {channelNamed.map((channelName, index) => {
+                        // activeChannelNames에 포함되어 있는지 확인
+                        const isActive = activeChannelNames.includes(channelName);
+                        return (
+                            <button
+                                key={index}
+                                onClick={() => scrollToVideo(index)}
+                                className={`mb-2 p-2 rounded text-white ${isActive ? 'bg-red-500' : 'bg-blue-500'}`} // 조건부 클래스
+                            >
+                                {channelName}
+                            </button>
+                        );
+                    })}
+                </div>
 
-                {/* <VideoComponent channelName="3" setActiveChannelNames={setActiveChannelNames} data={data} imageData={imageData} /> */}
-                <VideoComponent channelName="13_13" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
-                <VideoComponent channelName="13_14" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
-                <VideoComponent channelName="14_14" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
-                <VideoComponent channelName="15_15" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
-                <VideoComponent channelName="16_16" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
-                <VideoComponent channelName="2_2" channelNames={channelNames} setActiveChannelNames={setActiveChannelNames} imageData={imageData} />
+                {/* VideoComponent 영역 */}
+                <div className="flex flex-wrap ml-4">
+                    {channelNamed.map((channelName, index) => (
+                        <div
+                            key={index}
+                            ref={(el) => { videoRefs.current[index] = el; }} // ref를 올바르게 설정
+                            className="mb-4"
+                        >
+                            <VideoComponent
+                                channelName={channelName}
+                                channelNames={channelNames}
+                                setActiveChannelNames={setActiveChannelNames}
+                                imageData={imageData}
+                            />
+                        </div>
+                    ))}
+                </div>
             </div>
         </AgoraProvider>
     );

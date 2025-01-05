@@ -74,12 +74,12 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
             }));
         }
     }, [gtData, channelName]);
-    console.log(keyData, mgData, gtData);
+    // console.log(keyData, mgData, gtData);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
             const users = remoteUsers[channelName] || {};
-            console.log(users)
+            // console.log(users)
             Object.keys(users).forEach(async (uid) => {
                 const user: IRemoteUser = users[Number(uid)];
                 // console.log(user);
@@ -129,7 +129,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
     const handleCallEnd = async () => {
         const client = clients[channelName];
-        console.log(client)
+        // console.log(client)
         if (client) {
             await client.leave(); // Agora 채널 나가기
             setIsCallActive(false); // 통화 상태를 비활성화하여 UI 숨기기
@@ -161,7 +161,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
 
 
-    console.log(clients, remoteUsers, channelName)
+    // console.log(clients, remoteUsers, channelName)
     return (
         <div style={{ display: 'flex' }}>
 
