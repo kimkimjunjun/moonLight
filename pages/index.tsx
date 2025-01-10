@@ -71,8 +71,9 @@ const HomePage = () => {
             newActiveChannels.push('13_13');
             newActiveChannels.push('13_14');
           }
-          if (key === 'camera14') {
+          if (key === 'camera14_1' || key === 'camera14_2') {
             newActiveChannels.push('14_14');
+            newActiveChannels.push('14_15');
           }
           if (key === 'camera15_1' || key === 'camera15_2') {
             newActiveChannels.push('15_15');
