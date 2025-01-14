@@ -77,6 +77,11 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                                         <div className='flex'>
                                             <span className='font-semibold'>{data.guest_name}</span>
                                         </div>
+                                        {data.memo !== "" && (
+                                            <div className='flex'>
+                                                <span className='font-semibold'>{data.memo}</span>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
