@@ -13,7 +13,7 @@ interface JoinProps {
 const Join = ({ appId, channelNames, setActiveChannelNames, imageData, activeChannelNames }: JoinProps) => {
     // 각 VideoComponent에 대한 refs 생성
     const videoRefs = useRef<(HTMLDivElement | null)[]>([]);
-    const [channelNamed] = useState(["4_4", "13_13", "13_14", "14_14", "14_15", "15_15", "2_2"]);
+    const [channelNamed] = useState(["4_4", "13_13", "13_14", "14_14", "14_15", "15_15", "19_19", "2_2"]);
 
     // 버튼 클릭 시 해당 VideoComponent로 스크롤하는 함수
     const scrollToVideo = (index: number) => {

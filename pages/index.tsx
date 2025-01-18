@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 const HomePage = () => {
   const [appId] = useState('5c8ac8416ead4829aa0fa3c9767ea7cb');
-  const [streamNames] = useState<string[]>(['camera4', 'camera4_1', 'camera4_2', 'camera13', 'camera13_1', 'camera13_2', 'camera13_3', 'camera14_1', 'camera14_2', 'camera15_1', 'camera15_2']); // 스트림 이름을 문자열 배열로 초기화
+  const [streamNames] = useState<string[]>(['camera4', 'camera4_1', 'camera4_2', 'camera13', 'camera13_1', 'camera13_2', 'camera13_3', 'camera14_1', 'camera14_2', 'camera15_1', 'camera15_2', 'camera19_1', 'camera19_2']); // 스트림 이름을 문자열 배열로 초기화
   const [activeChannelNames, setActiveChannelNames] = useState<string[]>([]); // 활성화된 채널 이름 배열
   const [cameraNum, setCameraNum] = useState('');
 
@@ -80,9 +80,9 @@ const HomePage = () => {
           if (key === 'camera15_1' || key === 'camera15_2') {
             newActiveChannels.push('15_15');
           }
-          // if (key === 'camera16_1' || key === 'camera16_2') {
-          //   newActiveChannels.push('16_16');
-          // }
+          if (key === 'camera19_1' || key === 'camera19_2') {
+            newActiveChannels.push('19_19');
+          }
           // else if (key === 'camera13_1' || key === 'camera13_2') {
 
           // }

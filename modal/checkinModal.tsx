@@ -1,4 +1,4 @@
-import putKeyBox from "@/service/putKeyBox";
+import putKeyBox, { putGuest } from "@/service/putKeyBox";
 import MyModal from "./baseModal";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
@@ -71,6 +71,16 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
         setRoomName('');
         setReserName('');
     };
+
+    const handleChecking = async (acceptData: number) => {
+        try {
+            console.log(acceptData)
+            await putGuest(acceptData, 2);
+        } catch (e) {
+            console.error(e);
+            return null;
+        }
+    }
 
     return (
         <MyModal isOpen={modalIsOpen} closeModal={closeModal}>
