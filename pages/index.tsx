@@ -80,8 +80,9 @@ const HomePage = () => {
           if (key === 'camera15_1' || key === 'camera15_2') {
             newActiveChannels.push('15_15');
           }
-          if (key === 'camera19_1' || key === 'camera19_2') {
+          if (key === 'camera19' || key === 'camera19_1' || key === 'camera19_2') {
             newActiveChannels.push('19_19');
+            newActiveChannels.push('19_20');
           }
           // else if (key === 'camera13_1' || key === 'camera13_2') {
 
