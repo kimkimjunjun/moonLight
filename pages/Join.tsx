@@ -30,17 +30,47 @@ const Join = ({ appId, channelNames, setActiveChannelNames, imageData, activeCha
                     {channelNamed.map((channelName, index) => {
                         // activeChannelNames에 포함되어 있는지 확인
                         const isActive = activeChannelNames?.includes(channelName);
+
+                        // channelName에 따라 보여줄 이름 설정
+                        let displayName;
+                        switch (channelName) {
+                            case '4_4':
+                                displayName = '아띠';
+                                break;
+                            case '13_13':
+                                displayName = '두루와';
+                                break;
+                            case '13_14':
+                                displayName = '두루와서브';
+                                break;
+                            case '14_14':
+                                displayName = '뉴캐슬';
+                                break;
+                            case '14_15':
+                                displayName = '뉴캐슬서브';
+                                break;
+                            case '19_19':
+                                displayName = '코지';
+                                break;
+                            case '19_20':
+                                displayName = '코지서브';
+                                break;
+                            default:
+                                displayName = channelName; // 기본값: 원래 이름 사용
+                        }
+
                         return (
                             <button
                                 key={index}
                                 onClick={() => scrollToVideo(index)}
-                                className={`mb-2 p-2 rounded text-white ${isActive ? 'bg-red-500' : 'bg-blue-500'}`} // 조건부 클래스
+                                className={`mb-2 p-4 text-[1.6rem] rounded text-white ${isActive ? 'bg-red-500' : 'bg-blue-500'}`} // 조건부 클래스
                             >
-                                {channelName}
+                                {displayName}
                             </button>
                         );
                     })}
                 </div>
+
 
                 {/* VideoComponent 영역 */}
                 <div className="flex flex-wrap ml-4">

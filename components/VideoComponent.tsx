@@ -158,7 +158,32 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
         }
     }
 
-
+    let displayName;
+    switch (channelName) {
+        case '4_4':
+            displayName = '아띠';
+            break;
+        case '13_13':
+            displayName = '두루와';
+            break;
+        case '13_14':
+            displayName = '두루와서브';
+            break;
+        case '14_14':
+            displayName = '뉴캐슬';
+            break;
+        case '14_15':
+            displayName = '뉴캐슬서브';
+            break;
+        case '19_19':
+            displayName = '코지';
+            break;
+        case '19_20':
+            displayName = '코지서브';
+            break;
+        default:
+            displayName = channelName; // 기본값: 원래 이름 사용
+    }
 
 
     // console.log(clients, remoteUsers, channelName)
@@ -177,7 +202,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                             const imgData = guest?.id_list[1];
                             const acceptData = guest?.id;
                             const guestNames = guest?.name;
-                            console.log(acceptData, gtData, uid)
+                            // console.log(acceptData, gtData, uid)
                             // const videoFeedUrls = {
                             //     2: [
                             //         "http://localhost:5000/video_feed/hotel4",
@@ -362,7 +387,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                         <span
                             className='w-[83rem] h-[42rem] bg-black text-white text-[2rem]'
                         >
-                            {channelName}번 모텔
+                            {displayName}
                         </span>
                     </div>
                 )}
