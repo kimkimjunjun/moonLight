@@ -254,17 +254,18 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                             return (
                                 <div key={uid} id={`remote-video-${uid}`} style={{ width: '100%', height: '100%', marginBottom: '10px' }}>
 
-                                    <div className='flex ml-[1rem]'>
-                                        <video
-                                            id={`user-video-${uid}`}
-                                            className='w-[83rem] h-[42rem]'
-                                            style={{
-                                                backgroundColor: 'black',
-                                            }}
-                                            controls
-                                        />
-
-
+                                    <div className='flex ml-[1rem]'> {/* relative 추가 */}
+                                        <div className='flex relative'>
+                                            <video
+                                                id={`user-video-${uid}`}
+                                                className='w-[83rem] h-[42rem]'
+                                                style={{
+                                                    backgroundColor: 'black',
+                                                }}
+                                                controls
+                                            />
+                                            <h1 className='absolute text-[2rem] font-bold text-white z-30 bg-black top-0 right-0 px-[1rem]'>{displayName}</h1> {/* 위치 조정 */}
+                                        </div>
                                         <div className='flex space-x-4'>
                                             {/* {videoFeedUrls.map((url, index) => (
                                             <img key={index} src={url} width="200" height="121" alt={`Stream ${index + 1}`} />
