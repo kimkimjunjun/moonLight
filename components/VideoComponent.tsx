@@ -96,7 +96,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
                 if (user.audioTrack) {
                     setIsCallActive(true);
-                    if (Number(uid) < 30000) {
+                    if (Number(uid) < 8888) {
                         user.audioTrack.play();
                     } else {
                         user.audioTrack.stop();
