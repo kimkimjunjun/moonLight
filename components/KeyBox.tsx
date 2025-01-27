@@ -52,9 +52,9 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                         // 현재 data의 room_id가 matchedRoomIds에 포함되어 있는지 확인
                         const isBorderVisible = matchedRoomIds.includes(data.room_id);
                         return (
-                            <div className={`border ${isBorderVisible ? " border-blue-400" : "border-none"}`} key={index}>
+                            <div className={`border `} key={index}>
                                 <div
-                                    className={`w-[7.7rem] h-[6rem] cursor-pointer border-2 ${data.checkin_status === 1 ? "border-[#7584AE]" :
+                                    className={`${isBorderVisible ? " bg-[#E4F7BA] text-black" : "bg-none"} w-[7.7rem] h-[6rem] cursor-pointer border-2 ${data.checkin_status === 1 ? "border-[#7584AE]" :
                                         data.room_id ? "border-[#75AE85]" : "border-[#F1F1F1]"} my-[0.2rem] mx-[0.3rem]`}
 
                                     onClick={() => { openModal(data); setRoomIded(data.room_id) }}

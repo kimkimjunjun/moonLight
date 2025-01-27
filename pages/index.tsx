@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 
 const HomePage = () => {
   const [appId] = useState('5c8ac8416ead4829aa0fa3c9767ea7cb');
-  const [streamNames] = useState<string[]>(['camera4', 'camera4_1', 'camera4_2', 'camera13', 'camera13_1', 'camera13_2', 'camera13_3', 'camera14_1', 'camera14_2', 'camera15_1', 'camera15_2', 'camera19', 'camera19_1', 'camera19_2']); // 스트림 이름을 문자열 배열로 초기화
+  const [streamNames] = useState<string[]>(['camera4', 'camera4_1', 'camera4_2', 'camera13', 'camera13_1', 'camera13_2', 'camera13_3', 'camera14_1', 'camera14_2']); // 스트림 이름을 문자열 배열로 초기화
   const [activeChannelNames, setActiveChannelNames] = useState<string[]>([]); // 활성화된 채널 이름 배열
   const [cameraNum, setCameraNum] = useState('');
 
@@ -13,7 +13,7 @@ const HomePage = () => {
     ['movementStatus', streamNames],
     () => fetchMovementStatus(streamNames.join(',')), // 배열을 문자열로 변환하여 요청
     {
-      refetchInterval: 1000, // 1초마다 새로 고침
+      refetchInterval: 2000, // 1초마다 새로 고침
       enabled: streamNames.length > 0, // streamNames가 비어있지 않을 때만 쿼리 실행
     }
   );
@@ -77,13 +77,10 @@ const HomePage = () => {
             newActiveChannels.push('14_14');
             newActiveChannels.push('14_15');
           }
-          if (key === 'camera15_1' || key === 'camera15_2') {
-            newActiveChannels.push('15_15');
-          }
-          if (key === 'camera19' || key === 'camera19_1' || key === 'camera19_2') {
-            newActiveChannels.push('19_19');
-            newActiveChannels.push('19_20');
-          }
+          // if (key === 'camera19' || key === 'camera19_1' || key === 'camera19_2') {
+          //   newActiveChannels.push('19_19');
+          //   newActiveChannels.push('19_20');
+          // }
           // else if (key === 'camera13_1' || key === 'camera13_2') {
 
           // }
