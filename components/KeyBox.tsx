@@ -48,9 +48,11 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                 {keyData?.storages
                     .map((data: any, index: number) => {
                         const matchedRoomIds = gtData?.guests?.filter((guest: any) => guest.process === 1).map((guest: any) => guest.room_id) || [];
+                        const matchedName = gtData?.guests?.filter((guest: any) => guest.process === 1).map((guest: any) => guest.name) || [];
                         // const matchedGuestIds = gtData?.guests?.filter((guest: any) => guest.process === 1).map((guest: any) => guest.id) || [];
                         // updateAcceptCheckId(matchedGuestIds[0])
                         // 현재 data의 room_id가 matchedRoomIds에 포함되어 있는지 확인
+                        console.log(matchedName)
                         const isBorderVisible = matchedRoomIds.includes(data.room_id);
                         return (
                             <div className={`border `} key={index}>
@@ -85,7 +87,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                                         )}
                                     </div>
                                 </div>
-                                <CheckinModal modalIsOpen={modalIsOpen} closeModal={closeModal} hotelId={channelName} roomIds={Number(roomIds)} keyBoxRefetch={keyBoxRefetch} numberId={numberId} roomNames={roomNames} guestNames={guestNames} setGuestNames={setGuestNames} roomIded={roomIded} selecetData={selecetData} pricex={pricex} />
+                                <CheckinModal modalIsOpen={modalIsOpen} closeModal={closeModal} hotelId={channelName} roomIds={Number(roomIds)} keyBoxRefetch={keyBoxRefetch} numberId={numberId} roomNames={roomNames} guestNames={guestNames} setGuestNames={setGuestNames} roomIded={roomIded} selecetData={selecetData} pricex={pricex} matchedName={matchedName[matchedName.length - 1]} />
 
                             </div>
                         );

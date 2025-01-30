@@ -17,9 +17,10 @@ interface EmploProps {
     roomIded: number;
     selecetData: any;
     pricex: number;
+    matchedName: string;
 }
 
-export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds, keyBoxRefetch, numberId, roomNames, guestNames, setGuestNames, roomIded, selecetData, pricex }: EmploProps) {
+export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds, keyBoxRefetch, numberId, roomNames, guestNames, setGuestNames, roomIded, selecetData, pricex, matchedName }: EmploProps) {
     const [roomName, setRoomName] = useState('');
     const [reserName, setReserName] = useState('');
     const [roomIdx, setRoomIdx] = useState<number | null>(null); // roomIdx를 null로 초기화
@@ -36,7 +37,7 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
         queryFn: () => getRoomNameId(roomNames, hotelId),
         enabled: !!roomNames // roomName이 있을 때만 쿼리 실행
     });
-    console.log(selecetData)
+    // console.log(selecetData)
     const boxHandler = async () => {
 
         const boxData = {
@@ -46,10 +47,11 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
             checkin_status: 1,
             is_booked: reserName ? 1 : 0, // reserName이 존재하면 1, 그렇지 않으면 0
             is_paid: reserName ? 1 : 0,
-            ...(reserName && { guest_name: reserName }), // reserName이 존재하면 guest_name 추가
             has_key: 1,
-            price: pricex
+            price: pricex,
+            guest_name: reserName || matchedName[0] // reserName이 있으면 reserName, 없으면 matchedName 사용
         };
+
 
         try {
             console.log(boxData, roomIded);
