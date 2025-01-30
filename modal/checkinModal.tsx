@@ -16,9 +16,10 @@ interface EmploProps {
     setGuestNames: any;
     roomIded: number;
     selecetData: any;
+    pricex: number;
 }
 
-export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds, keyBoxRefetch, numberId, roomNames, guestNames, setGuestNames, roomIded, selecetData }: EmploProps) {
+export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds, keyBoxRefetch, numberId, roomNames, guestNames, setGuestNames, roomIded, selecetData, pricex }: EmploProps) {
     const [roomName, setRoomName] = useState('');
     const [reserName, setReserName] = useState('');
     const [roomIdx, setRoomIdx] = useState<number | null>(null); // roomIdx를 null로 초기화
@@ -46,7 +47,8 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
             is_booked: reserName ? 1 : 0, // reserName이 존재하면 1, 그렇지 않으면 0
             is_paid: reserName ? 1 : 0,
             ...(reserName && { guest_name: reserName }), // reserName이 존재하면 guest_name 추가
-            has_key: 1
+            has_key: 1,
+            price: pricex
         };
 
         try {
@@ -104,11 +106,14 @@ export default function CheckinModal({ modalIsOpen, closeModal, hotelId, roomIds
                             }}
                         />
                     </div>
+                    <div className="flex text-[2rem] font-bold mt-[1rem]">
+                        <span className="mr-[1rem] text-red-500">가격: {pricex}원</span>
+                    </div>
                 </div>
-                <span className="mx-auto text-[#D32525] text-[2rem] font-bold mt-auto">예약자분 성함이 틀리지 않도록 주의해주세요 !</span>
-                <div className="flex mx-auto text-[1.8rem] mb-[3rem]">
-                    <button className="border border-[#858585] w-[15rem] py-[0.4rem] rounded-[1rem]" onClick={closeKeyModal}>취소</button>
-                    <button className={`${roomNData ? "bg-[#575A7C] border-[#575A7C]" : "bg-[#858585] border-[#858585]"} border text-black w-[15rem] py-[0.4rem] rounded-[1rem] ml-[1rem] transition-all duration-200`} onClick={boxHandler}>입력 완료</button>
+                <span className="mx-auto text-[#D32525] text-[2rem] font-bold mt-[1rem]">예약자분 성함이 틀리지 않도록 주의해주세요 !</span>
+                <div className="flex mx-auto mb-[3rem] text-[2rem]">
+                    <button className="border border-[#858585] w-[15rem] py-[0.4rem] px-[1rem] rounded-[1rem]" onClick={closeKeyModal}>취소</button>
+                    <button className={`${roomNData ? "bg-[#575A7C] border-[#575A7C]" : "bg-[#858585] border-[#858585]"} border text-black w-[15rem] py-[0.4rem] rounded-[1rem] ml-[1rem] transition-all duration-200 px-[1rem]`} onClick={boxHandler}>입력 완료</button>
                 </div>
             </div>
         </MyModal>

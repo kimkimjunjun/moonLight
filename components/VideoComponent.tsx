@@ -29,6 +29,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
     const [isMouseDown, setIsMouseDown] = useState<{ [key: number]: boolean }>({});
     const [isMicPublished, setIsMicPublished] = useState<{ [key: number]: boolean }>({});
     const [isCallActive, setIsCallActive] = useState(true);
+    const [channelNamed] = useState(["4_4", "13_13", "13_14", "14_14", "14_15", "2_2"]);
 
     const [acceptCheckIds, setAcceptCheckIds] = useState<{ [key: string]: number }>({
         [channelName]: 0, // 초기값 설정
@@ -129,15 +130,24 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
     const handleCallEnd = async () => {
         const client = clients[channelName];
-        // console.log(client)
-        if (client) {
-            await client.leave(); // Agora 채널 나가기
-            setIsCallActive(false); // 통화 상태를 비활성화하여 UI 숨기기
 
-            // activeChannelNames에서 현재 channelName 제거
-            setActiveChannelNames((prev: any) => prev.filter((name: string) => name !== channelName));
+        if (client) {
+            // 현재 채널을 나가기 전에 activeChannelNames에서 현재 channelName 제거
+            setActiveChannelNames((prev: any) => {
+                const updatedChannels = prev.filter((name: string) => name !== channelName);
+
+                // 제거된 채널에 대해 leave 함수 실행
+                if (!prev.includes(channelName) && !updatedChannels.includes(channelName)) {
+                    client.leave(); // Agora 채널 나가기
+                }
+
+                return updatedChannels;
+            });
+
+            setIsCallActive(false); // 통화 상태를 비활성화하여 UI 숨기기
         }
     };
+
 
     const handleChecking = async (acceptData: number) => {
         try {
@@ -427,7 +437,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                             <RoominfoSet2 channelName={channelName.split('_')[0]} keyData={keyData} keyBoxRefetch={keyBoxRefetch} gtData={gtData} />
                         }
 
-                        <button className='px-[2rem] py-[1rem] text-[2rem] border border-black flex items-center' onClick={handleCallEnd}>
+                        <button className='px-[2rem] py-[1rem] text-[2rem] border border-black flex items-center' onClick={() => handleCallEnd()}>
                             <Image className='mr-[1rem]' src={calloff} alt='' />
                             {channelName}번 통화종료
                         </button>
