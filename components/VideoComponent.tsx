@@ -30,7 +30,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
     const [isMicPublished, setIsMicPublished] = useState<{ [key: number]: boolean }>({});
     const [isCallActive, setIsCallActive] = useState(true);
     const [channelNamed] = useState(["4_4", "13_13", "13_14", "14_14", "14_15", "2_2"]);
-
+    const [isMuted, setIsMuted] = useState(false);
     const [acceptCheckIds, setAcceptCheckIds] = useState<{ [key: string]: number }>({
         [channelName]: 0, // 초기값 설정
     });
@@ -106,6 +106,65 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
             });
         }
     }, [remoteUsers, channelName]); // channelName 추가
+    console.log(clients)
+
+    const muteMicAudio = async () => {
+        const uidToFind = Number(channelName.replace('_', '')); // '_'를 제거하여 uid로 변환
+
+        // 모든 클라이언트에 대해 반복
+        for (const channel in clients) {
+            const client = clients[channel];
+
+            // remoteUsers에서 모든 사용자에 대해 반복
+            for (const userId in client.remoteUsers) {
+                const user = client.remoteUsers[userId];
+                const audioTrack = user.audioTrack;
+
+                // uidToFind와 일치하는 경우 음소거하지 않음
+                if (user.uid === uidToFind) {
+                    console.log(`Skipping mute for user with uid: ${user.uid}`);
+                    continue; // 현재 사용자 건너뛰기
+                }
+
+                if (audioTrack) {
+                    await audioTrack.setVolume(0); // 오디오 트랙 볼륨을 0으로 설정
+                    console.log(`Audio muted for user with uid: ${user.uid}`);
+                } else {
+                    console.warn(`No audio track found for user with uid: ${user.uid}`);
+                }
+            }
+        }
+    };
+
+
+    const unmuteMicAudio = async () => {
+        const uidToFind = Number(channelName.replace('_', '')); // '_'를 제거하여 uid로 변환
+
+        // 모든 클라이언트에 대해 반복
+        for (const channel in clients) {
+            const client = clients[channel];
+
+            // remoteUsers에서 모든 사용자에 대해 반복
+            for (const userId in client.remoteUsers) {
+                const user = client.remoteUsers[userId];
+                const audioTrack = user.audioTrack;
+
+                // uidToFind와 일치하는 경우 음소거하지 않음
+                if (user.uid === uidToFind) {
+                    console.log(`Skipping mute for user with uid: ${user.uid}`);
+                    continue; // 현재 사용자 건너뛰기
+                }
+
+                if (audioTrack) {
+                    await audioTrack.setVolume(100); // 오디오 트랙 볼륨을 0으로 설정
+                    console.log(`Audio muted for user with uid: ${user.uid}`);
+                } else {
+                    console.warn(`No audio track found for user with uid: ${user.uid}`);
+                }
+            }
+        }
+    };
+
 
     const handleMicToggle = async (uid: number, action: 'publish' | 'unpublish') => {
         const client = clients[channelName];
@@ -126,6 +185,44 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 console.error('Error toggling microphone:', error);
             }
         }
+    };
+
+
+    const muteAudio = async () => {
+        const client = clients[channelName];
+        const uidToFind = Number(channelName.replace('_', '')); // ''를 제거하여 uid로 변환
+        const localTracks = client.remoteUsers.find((user: any) => user.uid === uidToFind);// 로컬 트랙 가져오기
+        // const localAudioTrack = localTracks.find((track: any) => track.mediaType === 'audio'); // 오디오 트랙 찾기
+        const audioTrackd = localTracks.audioTrack;
+        if (audioTrackd) {
+            await audioTrackd.setVolume(0); // 오디오 트랙 비활성화 (음소거)
+            console.log('Audio muted');
+        } else {
+            console.warn('No audio track found');
+        }
+    };
+
+    const unmuteAudio = async () => {
+        const client = clients[channelName];
+        const uidToFind = Number(channelName.replace('_', '')); // '_'를 제거하여 uid로 변환
+        const localTracks = client.remoteUsers.find((user: any) => user.uid === uidToFind); // 사용자 찾기
+        // const localAudioTrack = localTracks.find((track: any) => track.mediaType === 'audio'); // 오디오 트랙 찾기
+        const audioTrackd = localTracks.audioTrack;
+        if (audioTrackd) {
+            await audioTrackd.setVolume(100); // 오디오 트랙 비활성화 (음소거)
+            console.log('Audio muted');
+        } else {
+            console.warn('No audio track found');
+        }
+    };
+
+    const handleMuteToggle = async () => {
+        if (isMuted) {
+            await unmuteAudio();
+        } else {
+            await muteAudio();
+        }
+        setIsMuted(!isMuted); // 상태 반전
     };
 
     const handleCallEnd = async () => {
@@ -185,18 +282,11 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
         case '14_15':
             displayName = '뉴캐슬서브';
             break;
-        case '19_19':
-            displayName = '코지';
-            break;
-        case '19_20':
-            displayName = '코지서브';
-            break;
         default:
             displayName = channelName; // 기본값: 원래 이름 사용
     }
 
-
-    console.log(clients)
+    // console.log(clients, remoteUsers, channelName)
     return (
         <div style={{ display: 'flex' }}>
 
@@ -206,13 +296,14 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                     <>
                         {Object.keys(remoteUsers[channelName] || {}).map((uid) => {
                             // console.log(keyData, mgData, gtData, user)
+                            const effectiveUid = Array.isArray(uid) ? uid[0] : uid;
                             const guest = gtData?.guests.find((guest: any) => guest.process === 1 && guest.hotel_id === Number(channelName.split('_')[0]));
 
                             // guest가 존재할 경우 id_list[1]과 id를 가져옵니다.
                             const imgData = guest?.id_list[1];
                             const acceptData = guest?.id;
                             const guestNames = guest?.name;
-                            // console.log(acceptData, gtData, uid)
+                            console.log(acceptData, gtData, uid)
                             // const videoFeedUrls = {
                             //     2: [
                             //         "http://localhost:5000/video_feed/hotel4",
@@ -262,12 +353,12 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                             };
 
                             return (
-                                <div key={uid} id={`remote-video-${uid}`} style={{ width: '100%', height: '100%', marginBottom: '10px' }}>
+                                <div key={uid} id={`remote-video-${effectiveUid}`} style={{ width: '100%', height: '100%', marginBottom: '10px' }}>
 
                                     <div className='flex ml-[1rem]'> {/* relative 추가 */}
                                         <div className='flex relative'>
                                             <video
-                                                id={`user-video-${uid}`}
+                                                id={`user-video-${effectiveUid}`}
                                                 className='w-[83rem] h-[42rem]'
                                                 style={{
                                                     backgroundColor: 'black',
@@ -280,6 +371,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                             {/* {videoFeedUrls.map((url, index) => (
                                             <img key={index} src={url} width="200" height="121" alt={`Stream ${index + 1}`} />
                                         ))} */}
+
                                         </div>
                                         <div className='flex mt-[1rem]'>
                                             <div>
@@ -310,6 +402,8 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                                         [Number(uid)]: true,
                                                                     }));
                                                                     handleMicToggle(Number(uid), 'publish'); // 마이크 발행
+
+                                                                    muteMicAudio();
                                                                 }}
                                                                 onMouseUp={() => {
                                                                     setIsMouseDown((prev) => ({
@@ -317,6 +411,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                                         [Number(uid)]: false,
                                                                     }));
                                                                     handleMicToggle(Number(uid), 'unpublish'); // 마이크 음소거
+                                                                    unmuteMicAudio();
                                                                 }}
                                                             >
                                                                 {isMouseDown[Number(uid)] ? (
@@ -335,6 +430,11 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                         <button className='w-full h-[4rem] border border-black mt-[1rem] text-[2rem]' onClick={() => captureImage(uid)} >
                                                             이미지캡쳐
                                                         </button>
+                                                        <div>
+                                                            <button className='w-full h-[4rem] border border-black mt-[1rem] text-[2rem]' onClick={handleMuteToggle}>
+                                                                {isMuted ? '음소거해제' : '음소거'}
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                     <div className='flex'>
                                                         <div className='flex flex-col'>
