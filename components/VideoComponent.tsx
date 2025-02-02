@@ -196,7 +196,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
     }
 
 
-    // console.log(clients, remoteUsers, channelName)
+    console.log(clients)
     return (
         <div style={{ display: 'flex' }}>
 
