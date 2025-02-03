@@ -52,7 +52,7 @@ function RoominfoSet2({ channelName, keyData, keyBoxRefetch, gtData }: RoomProps
                         // const matchedGuestIds = gtData?.guests?.filter((guest: any) => guest.process === 1).map((guest: any) => guest.id) || [];
                         // updateAcceptCheckId(matchedGuestIds[0])
                         // 현재 data의 room_id가 matchedRoomIds에 포함되어 있는지 확인
-                        console.log(matchedName)
+                        // console.log(matchedName)
                         const isBorderVisible = matchedRoomIds.includes(data.room_id);
                         return (
                             <div className={`border `} key={index}>

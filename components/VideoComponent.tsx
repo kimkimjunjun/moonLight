@@ -97,7 +97,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
 
                 if (user.audioTrack) {
                     setIsCallActive(true);
-                    if (Number(uid) < 8888) {
+                    if (Number(uid) < 10000) {
                         user.audioTrack.play();
                     } else {
                         user.audioTrack.stop();
@@ -127,7 +127,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 }
 
                 if (audioTrack) {
-                    await audioTrack.setVolume(0); // 오디오 트랙 볼륨을 0으로 설정
+                    await audioTrack.stop(); // 오디오 트랙 볼륨을 0으로 설정
                     console.log(`Audio muted for user with uid: ${user.uid}`);
                 } else {
                     console.warn(`No audio track found for user with uid: ${user.uid}`);
@@ -156,7 +156,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 }
 
                 if (audioTrack) {
-                    await audioTrack.setVolume(100); // 오디오 트랙 볼륨을 0으로 설정
+                    await audioTrack.play(); // 오디오 트랙 볼륨을 0으로 설정
                     console.log(`Audio muted for user with uid: ${user.uid}`);
                 } else {
                     console.warn(`No audio track found for user with uid: ${user.uid}`);
@@ -195,7 +195,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
         // const localAudioTrack = localTracks.find((track: any) => track.mediaType === 'audio'); // 오디오 트랙 찾기
         const audioTrackd = localTracks.audioTrack;
         if (audioTrackd) {
-            await audioTrackd.setVolume(0); // 오디오 트랙 비활성화 (음소거)
+            await audioTrackd.stop(); // 오디오 트랙 비활성화 (음소거)
             console.log('Audio muted');
         } else {
             console.warn('No audio track found');
@@ -209,7 +209,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
         // const localAudioTrack = localTracks.find((track: any) => track.mediaType === 'audio'); // 오디오 트랙 찾기
         const audioTrackd = localTracks.audioTrack;
         if (audioTrackd) {
-            await audioTrackd.setVolume(100); // 오디오 트랙 비활성화 (음소거)
+            await audioTrackd.play(); // 오디오 트랙 비활성화 (음소거)
             console.log('Audio muted');
         } else {
             console.warn('No audio track found');
@@ -232,11 +232,14 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
             // 현재 채널을 나가기 전에 activeChannelNames에서 현재 channelName 제거
             setActiveChannelNames((prev: any) => {
                 const updatedChannels = prev.filter((name: string) => name !== channelName);
-
                 // 제거된 채널에 대해 leave 함수 실행
-                if (!prev.includes(channelName) && !updatedChannels.includes(channelName)) {
-                    client.leave(); // Agora 채널 나가기
-                }
+                setTimeout(() => {
+                    if (!prev.includes(channelName) || !updatedChannels.includes(channelName)) {
+                        client.leave(); // Agora 채널 나가기
+                    }
+                }, 100)
+
+
 
                 return updatedChannels;
             });

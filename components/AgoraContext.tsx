@@ -58,17 +58,23 @@ export const AgoraProvider: React.FC<{ children: React.ReactNode; appId: string;
                         try {
                             // 피어 연결이 정상적인지 확인
                             if (client.connectionState === 'CONNECTED') {
+                                // 오디오 및 비디오 모두 구독
                                 await client.subscribe(user, mediaType);
                                 const uid = Number(user.uid);
+
+                                // remoteUsers 상태 업데이트
                                 setRemoteUsers((prev) => {
                                     const updatedUsers = prev[channel] || {};
-                                    const updatedUser = updatedUsers[uid] || { uid };
+                                    const updatedUser = updatedUsers[uid] || {};
+
+                                    // 미디어 타입에 따라 트랙 설정
                                     if (mediaType === 'video') {
                                         updatedUser.videoTrack = user.videoTrack;
                                     }
                                     if (mediaType === 'audio') {
                                         updatedUser.audioTrack = user.audioTrack;
                                     }
+
                                     return {
                                         ...prev,
                                         [channel]: {
@@ -77,6 +83,11 @@ export const AgoraProvider: React.FC<{ children: React.ReactNode; appId: string;
                                         }
                                     };
                                 });
+
+                                // 오디오 트랙이 있는 경우, 로컬에서 재생
+                                if (mediaType === 'audio' && user.audioTrack) {
+                                    user.audioTrack.play(); // 오디오 트랙 재생
+                                }
                             }
                         } catch (error) {
                             console.error('Error subscribing to user:', error);
