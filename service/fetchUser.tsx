@@ -29,3 +29,12 @@ export const putUpdateImg = async (camera_num: string) => {
         return null;
     }
 }
+
+export default async function putMove(cameraId: string) {
+    try {
+        const res = await axios.put(`/movement_status_true?stream_name=${cameraId}`)
+        return res.data
+    } catch (e) {
+        return null;
+    }
+}

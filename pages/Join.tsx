@@ -8,12 +8,15 @@ interface JoinProps {
     setActiveChannelNames: React.Dispatch<React.SetStateAction<string[]>>;
     imageData: [];
     activeChannelNames: string[];
+    streamNames: string[];
 }
 
-const Join = ({ appId, channelNames, setActiveChannelNames, imageData, activeChannelNames }: JoinProps) => {
+const Join = ({ appId, channelNames, setActiveChannelNames, imageData, activeChannelNames, streamNames }: JoinProps) => {
     // 각 VideoComponent에 대한 refs 생성
     const videoRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [channelNamed] = useState(["4_4", "13_13", "13_14", "14_14", "14_15", "2_2", "10_10"]);
+
+
 
     // 버튼 클릭 시 해당 VideoComponent로 스크롤하는 함수
     const scrollToVideo = (index: number) => {
@@ -69,20 +72,50 @@ const Join = ({ appId, channelNames, setActiveChannelNames, imageData, activeCha
 
                 {/* VideoComponent 영역 */}
                 <div className="flex flex-wrap ml-4">
-                    {channelNamed.map((channelName, index) => (
-                        <div
-                            key={index}
-                            ref={(el) => { videoRefs.current[index] = el; }} // ref를 올바르게 설정
-                            className="mb-4"
-                        >
-                            <VideoComponent
-                                channelName={channelName}
-                                channelNames={channelNames}
-                                setActiveChannelNames={setActiveChannelNames}
-                                imageData={imageData}
-                            />
-                        </div>
-                    ))}
+                    {channelNamed.map((channelName, index) => {
+                        let streamName;
+                        switch (channelName) {
+                            case '4_4':
+                                streamName = 'camera4_1';
+                                break;
+                            case '13_13':
+                                streamName = 'camera13_1';
+                                break;
+                            case '13_14':
+                                streamName = 'camera13_1';
+                                break;
+                            case '14_14':
+                                streamName = 'camera14_1';
+                                break;
+                            case '14_15':
+                                streamName = 'camera14_1';
+                                break;
+                            case '2_2':
+                                streamName = 'camera2_1';
+                                break;
+                            case '10_10':
+                                streamName = 'camera10_1';
+                                break;
+                            default:
+                                streamName = '';
+                                break;
+                        }
+                        return (
+                            <div
+                                key={index}
+                                ref={(el) => { videoRefs.current[index] = el; }} // ref를 올바르게 설정
+                                className="mb-4"
+                            >
+                                <VideoComponent
+                                    channelName={channelName}
+                                    channelNames={channelNames}
+                                    setActiveChannelNames={setActiveChannelNames}
+                                    imageData={imageData}
+                                    streamName={streamName}
+                                />
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </AgoraProvider>

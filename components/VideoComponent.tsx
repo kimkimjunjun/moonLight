@@ -10,6 +10,7 @@ import RoominfoSet2 from './KeyBox';
 import { IRemoteAudioTrack, IRemoteVideoTrack } from 'agora-rtc-sdk-ng';
 import calloff from "@/icons/calloff.svg"
 import { putGuest } from '@/service/putKeyBox';
+import putMove from '@/service/fetchUser';
 
 interface IRemoteUser {
     uid: number;
@@ -22,9 +23,10 @@ interface VideoComponentProps {
     setActiveChannelNames: any;
     imageData: [];
     channelNames: string[];
+    streamName: string;
 }
 
-const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveChannelNames, imageData, channelNames }) => {
+const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveChannelNames, imageData, channelNames, streamName }) => {
     const { remoteUsers, localTracks, clients } = useAgora();
     const [isMouseDown, setIsMouseDown] = useState<{ [key: number]: boolean }>({});
     const [isMicPublished, setIsMicPublished] = useState<{ [key: number]: boolean }>({});
@@ -54,6 +56,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
         enabled: !!Number(channelName.split('_')[0]),
     });
 
+    // console.log(streamName)
     // const [streamNames] = useState<string[]>(['2', '2_1', '3', '3_1']);
     //     const { data: simData } = useQuery({
     //         queryKey: ['simData'],
@@ -289,6 +292,14 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
             displayName = channelName; // 기본값: 원래 이름 사용
     }
 
+    const onMovementCamera = async () => {
+        try {
+            await putMove(streamName);
+            console.log(streamName)
+        } catch (e) {
+            return null;
+        }
+    }
     // console.log(clients, remoteUsers, channelName)
     return (
         <div style={{ display: 'flex' }}>
@@ -369,6 +380,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                 controls
                                             />
                                             <h1 className='absolute text-[2rem] font-bold text-white z-30 bg-black top-0 right-0 px-[1rem]'>{displayName}</h1> {/* 위치 조정 */}
+
                                         </div>
                                         <div className='flex space-x-4'>
                                             {/* {videoFeedUrls.map((url, index) => (
@@ -502,7 +514,9 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                             className='w-[83rem] h-[42rem] bg-black text-white text-[2rem]'
                         >
                             {displayName}
+                            <button className='flex ml-auto mr-[3rem] border border-white' onClick={() => onMovementCamera()}>움직임감지 강제</button>
                         </span>
+
                     </div>
                 )}
 
