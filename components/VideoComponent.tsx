@@ -33,6 +33,7 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
     const [isCallActive, setIsCallActive] = useState(true);
     const [channelNamed] = useState(["4_4", "13_13", "13_14", "14_14", "14_15", "2_2"]);
     const [isMuted, setIsMuted] = useState(false);
+    const [allMuted, setAllMuted] = useState(false);
     const [acceptCheckIds, setAcceptCheckIds] = useState<{ [key: string]: number }>({
         [channelName]: 0, // 초기값 설정
     });
@@ -228,6 +229,15 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
         setIsMuted(!isMuted); // 상태 반전
     };
 
+    const handleMuteToggle2 = async () => {
+        if (allMuted) {
+            await unmuteMicAudio();
+        } else {
+            await muteMicAudio();
+        }
+        setAllMuted(!allMuted); // 상태 반전
+    };
+
     const handleCallEnd = async () => {
         const client = clients[channelName];
 
@@ -392,12 +402,12 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                             <div>
                                                 <div className='flex flex-col'>
                                                     <div className='flex flex-col'>
-                                                        <div className='flex flex-col'>
-                                                            {isLoading ? (
+                                                        <div className='flex flex-col w-[28rem]'>
+                                                            {/* {isLoading ? (
                                                                 <Image src={dummy} alt='' width={280} height={100} />
                                                             ) : (
                                                                 <Image src={imgData} alt='' width={280} height={100} />
-                                                            )}
+                                                            )} */}
 
                                                             {channelName.split('_')[0] === channelName.split('_')[1] && (
                                                                 <div className='flex text-[1.2rem]'>
@@ -448,6 +458,9 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                                                         <div>
                                                             <button className='w-full h-[4rem] border border-black mt-[1rem] text-[2rem]' onClick={handleMuteToggle}>
                                                                 {isMuted ? '음소거해제' : '음소거'}
+                                                            </button>
+                                                            <button className='w-full h-[4rem] border border-black mt-[1rem] text-[2rem]' onClick={handleMuteToggle2}>
+                                                                {allMuted ? '해당모텔 제외 해제' : '해당모텔 제외 음소거'}
                                                             </button>
                                                         </div>
                                                     </div>
