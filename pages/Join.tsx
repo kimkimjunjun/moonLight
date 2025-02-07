@@ -72,9 +72,9 @@ const Join = ({ appId, channelNames, setActiveChannelNames, imageData, activeCha
                     {channelNamed.map((channelName, index) => {
                         let streamName;
                         switch (channelName) {
-                            // case '4_4':
-                            //     streamName = 'camera4_1';
-                            //     break;
+                            case '4_4':
+                                streamName = 'camera4_1';
+                                break;
                             case '13_13':
                                 streamName = 'camera13_1';
                                 break;
