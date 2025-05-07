@@ -4,7 +4,7 @@ import { fetchMovementStatus, getSimilarity, putUpdateImg } from '@/service/fetc
 import { useQuery } from 'react-query';
 
 const HomePage = () => {
-  const [appId] = useState('5c8ac8416ead4829aa0fa3c9767ea7cb');
+  const [appId] = useState('');
   const [streamNames] = useState<string[]>(['camera4', 'camera4_1', 'camera4_2', 'camera13_1', 'camera13_2', 'camera13_3', 'camera14', 'camera14_1', 'camera14_2']); // 스트림 이름을 문자열 배열로 초기화
   const [activeChannelNames, setActiveChannelNames] = useState<string[]>([]); // 활성화된 채널 이름 배열
   const [cameraNum, setCameraNum] = useState('');

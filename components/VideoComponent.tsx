@@ -534,46 +534,46 @@ const VideoComponent: React.FC<VideoComponentProps> = ({ channelName, setActiveC
                 )}
 
             </div>
-            {Array.isArray(channelNames) && channelNames.includes(channelName) && (
-                <div className='flex'>
+            {/* {Array.isArray(channelNames) && channelNames.includes(channelName) && ( */}
+            <div className='flex'>
 
-                    <div className='w-[28rem] h-[40rem] flex flex-col scrollbar1 border border-[#EDEDED]'>
-                        {mgData?.moonlight_notices
-                            .slice() // 원본 배열을 변경하지 않기 위해 복사
-                            .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // 내림차순 정렬
-                            .map((mgDatas: any) => {
-                                const createdAtDate = new Date(mgDatas.createdAt);
-                                const currentYear = new Date().getFullYear();
-                                const createdYear = createdAtDate.getFullYear();
+                <div className='w-[28rem] h-[40rem] flex flex-col scrollbar1 border border-[#EDEDED]'>
+                    {mgData?.moonlight_notices
+                        .slice() // 원본 배열을 변경하지 않기 위해 복사
+                        .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // 내림차순 정렬
+                        .map((mgDatas: any) => {
+                            const createdAtDate = new Date(mgDatas.createdAt);
+                            const currentYear = new Date().getFullYear();
+                            const createdYear = createdAtDate.getFullYear();
 
-                                // 날짜 형식 설정
-                                const formattedDate = createdYear === currentYear
-                                    ? `${createdAtDate.getMonth() + 1}월 ${createdAtDate.getDate()}일` // 이번 년도
-                                    : `${createdYear}년 ${createdAtDate.getMonth() + 1}월 ${createdAtDate.getDate()}일`; // 다른 년도
-                                return (
-                                    <div className={`w-full flex px-[1rem] py-[1rem] bg-white border-b border-[#CCCCCC]`} key={mgData.createdAt} >
-                                        <div className="w-[75%]">
-                                            <span className={`text-[0.95rem] font-medium whitespace-pre-line text-ellipsis`}>
-                                                {mgDatas.content}
-                                            </span>
-                                        </div>
-                                        <span className="ml-auto text-[#484848] text-[0.9rem]">{formattedDate}</span>
+                            // 날짜 형식 설정
+                            const formattedDate = createdYear === currentYear
+                                ? `${createdAtDate.getMonth() + 1}월 ${createdAtDate.getDate()}일` // 이번 년도
+                                : `${createdYear}년 ${createdAtDate.getMonth() + 1}월 ${createdAtDate.getDate()}일`; // 다른 년도
+                            return (
+                                <div className={`w-full flex px-[1rem] py-[1rem] bg-white border-b border-[#CCCCCC]`} key={mgData.createdAt} >
+                                    <div className="w-[75%]">
+                                        <span className={`text-[0.95rem] font-medium whitespace-pre-line text-ellipsis`}>
+                                            {mgDatas.content}
+                                        </span>
                                     </div>
-                                )
-                            })}
-                    </div>
-                    <div>
-                        {channelName.split('_')[0] === channelName.split('_')[1] &&
-                            <RoominfoSet2 channelName={channelName.split('_')[0]} keyData={keyData} keyBoxRefetch={keyBoxRefetch} gtData={gtData} />
-                        }
-
-                        <button className='px-[2rem] py-[1rem] text-[2rem] border border-black flex items-center' onClick={() => handleCallEnd()}>
-                            <Image className='mr-[1rem]' src={calloff} alt='' />
-                            {channelName}번 통화종료
-                        </button>
-                    </div>
+                                    <span className="ml-auto text-[#484848] text-[0.9rem]">{formattedDate}</span>
+                                </div>
+                            )
+                        })}
                 </div>
-            )}
+                <div>
+                    {channelName.split('_')[0] === channelName.split('_')[1] &&
+                        <RoominfoSet2 channelName={channelName.split('_')[0]} keyData={keyData} keyBoxRefetch={keyBoxRefetch} gtData={gtData} />
+                    }
+
+                    <button className='px-[2rem] py-[1rem] text-[2rem] border border-black flex items-center' onClick={() => handleCallEnd()}>
+                        <Image className='mr-[1rem]' src={calloff} alt='' />
+                        {channelName}번 통화종료
+                    </button>
+                </div>
+            </div>
+            {/* )} */}
             {/* )
             } */}
 
